@@ -1,0 +1,28 @@
+/* styles.css */
+
+.chart-grid-container {
+    width: 100%;
+    display: flex;
+    
+}
+
+.placeholder-sidebar {
+    width: 250px;
+}
+
+.wrap-chart-grid {
+    padding: 10px;
+    flex: 1;
+}
+
+.chart-grid {
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 cột bằng nhau */
+    grid-gap: 20px; /* Khoảng cách giữa các biểu đồ */
+  }
+  
+  .chart-item {
+    border: 1px solid #ddd; /* Đường viền cho mỗi biểu đồ */
+    padding: 20px; /* Khoảng cách bên trong mỗi biểu đồ */
+  }
