@@ -13,6 +13,8 @@
 .wrap-chart-grid {
     padding: 10px;
     flex: 1;
+    max-height: calc(100vh - 78px);
+    overflow: auto;
 }
 
 .chart-grid {

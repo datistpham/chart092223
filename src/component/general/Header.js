@@ -3,7 +3,8 @@ import './Header.css'; // Import file CSS
 
 const Header = () => {
   return (
-    <header className="header">
+    <>
+      <header className="header">
       <h1>Ứng dụng Biểu đồ</h1>
       <nav className="navbar">
         <ul>
@@ -14,6 +15,8 @@ const Header = () => {
         </ul>
       </nav>
     </header>
+    <div className="header-placeholder"></div>
+    </>
   );
 };
 
