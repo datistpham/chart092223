@@ -365,7 +365,6 @@ export default function ListStudent() {
                       {
                         compare=== false && <Button onClick={(e)=> {
                         e.stopPropagation()
-                        console.log(1)
                         setCompare(true)
                       }} variant="contained">Compare with</Button>
                       }
@@ -403,7 +402,7 @@ export default function ListStudent() {
         />
       </Paper>
       <AboutStudent open={open} setOpen={setOpen} {...currentData} />
-      <CompareStudent open={open2} setOpen={setOpen2} />
+      <CompareStudent open={open2} setOpen={setOpen2} setCompare={setCompare} />
     </Box>
   );
 }

@@ -15,7 +15,10 @@ const style = {
 
 export default function CompareStudent(props) {
   
-  const handleClose = () => props?.setOpen(false);
+  const handleClose = () => {
+    props?.setOpen(false)
+    props?.setCompare(false)
+  };
 
   return (
     <div style={{maxHeight: "100vh", overflow: "auto"}}>
