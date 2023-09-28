@@ -1,43 +1,52 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import { alpha } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper';
-import Checkbox from '@mui/material/Checkbox';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import { visuallyHidden } from '@mui/utils';
-import AboutStudent from './AboutStudent';
-import { Button } from '@mui/material';
-import { FlashOffRounded } from '@mui/icons-material';
-import CompareStudent from './CompareStudent';
+import * as React from "react";
+import PropTypes from "prop-types";
+import { alpha } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import Checkbox from "@mui/material/Checkbox";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import DeleteIcon from "@mui/icons-material/Delete";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import { visuallyHidden } from "@mui/utils";
+import BarChartCompare from "./BarChartCompare";
+import ComparePieChart from "./PieChartCompare";
+// import AboutStudent from './AboutStudent';
 
-function createData(studentId, studentName, gender, gradeName, averageMarks, gpa, classParticipationRate) {
+function createData(
+  studentId,
+  studentName,
+  gender,
+  gradeName,
+  averageMarks,
+  gpa,
+  classParticipationRate
+) {
   return {
-    studentId, studentName, gender, gradeName, averageMarks, gpa, classParticipationRate
+    studentId,
+    studentName,
+    gender,
+    gradeName,
+    averageMarks,
+    gpa,
+    classParticipationRate,
   };
 }
 
 const rows = [
-  createData(209, "Ava Cameron", "Female", "Grade 5", "91.60%", "4.00", "100.00%"),
-  createData(231, "Angel Poole", "Female", "Grade 1", "91.60%", "4.00", "100.00%"),
-  createData(179, "Ava Cameron", "Female", "Grade 5", "91.60%", "4.00", "100.00%"),
-  createData(208, "Ava Cameron", "Female", "Grade 5", "91.60%", "4.00", "100.00%"),
-  createData(272, "Ava Cameron", "Female", "Grade 5", "91.60%", "4.00", "100.00%"),
-  createData(209, "Ava Cameron", "Female", "Grade 5", "91.60%", "4.00", "100.00%"),
-  createData(296, "Ava Cameron", "Female", "Grade 5", "91.60%", "4.00", "100.00%"),
+  createData("Average score", "8.29", "9.42"),
+  createData("Days absent", "3", "5"),
+  createData("Class attendance rate", "84.39%", "72.29%"),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -51,7 +60,7 @@ function descendingComparator(a, b, orderBy) {
 }
 
 function getComparator(order, orderBy) {
-  return order === 'desc'
+  return order === "desc"
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
@@ -74,51 +83,34 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'id',
-    disablePadding: true,
-    label: 'Student ID',
-  },
-  {
-    id: 'studentName',
-    disablePadding: false,
-    label: 'Student Name',
-  },
-  {
-    id: 'gender',
-    disablePadding: false,
-    label: 'Gender',
-  },
-  {
-    id: 'gradeName',
+    id: "none",
     numeric: true,
     disablePadding: false,
-    label: 'Grade Name',
+    label: "",
   },
   {
-    id: 'averageMarks',
-    disablePadding: false,
-    label: 'Average Marks',
+    id: "student1",
+    numeric: false,
+    disablePadding: true,
+    label: "Ava Cameron	",
   },
   {
-    id: 'gpa',
+    id: "student2",
+    numeric: true,
     disablePadding: false,
-    label: 'GPA',
-  },
-  {
-    id: 'classParticipationRate',
-    disablePadding: false,
-    label: 'Class Participation Rate',
-  },
-  {
-    id: 'action',
-    disablePadding: false,
-    label: 'Action',
+    label: "Angel Poole	",
   },
 ];
 
 function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
-    props;
+  const {
+    onSelectAllClick,
+    order,
+    orderBy,
+    numSelected,
+    rowCount,
+    onRequestSort,
+  } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -133,26 +125,26 @@ function EnhancedTableHead(props) {
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
-              'aria-label': 'select all desserts',
+              "aria-label": "select all desserts",
             }}
           />
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.numeric ? 'right' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            align={headCell.numeric ? "right" : "left"}
+            padding={headCell.disablePadding ? "none" : "normal"}
             sortDirection={orderBy === headCell.id ? order : false}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : 'asc'}
+              direction={orderBy === headCell.id ? order : "asc"}
               onClick={createSortHandler(headCell.id)}
             >
               {headCell.label}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
-                  {order === 'desc' ? 'sorted descending' : 'sorted ascending'}
+                  {order === "desc" ? "sorted descending" : "sorted ascending"}
                 </Box>
               ) : null}
             </TableSortLabel>
@@ -167,7 +159,7 @@ EnhancedTableHead.propTypes = {
   numSelected: PropTypes.number.isRequired,
   onRequestSort: PropTypes.func.isRequired,
   onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(['asc', 'desc']).isRequired,
+  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
   rowCount: PropTypes.number.isRequired,
 };
@@ -182,13 +174,16 @@ function EnhancedTableToolbar(props) {
         pr: { xs: 1, sm: 1 },
         ...(numSelected > 0 && {
           bgcolor: (theme) =>
-            alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
+            alpha(
+              theme.palette.primary.main,
+              theme.palette.action.activatedOpacity
+            ),
         }),
       }}
     >
       {numSelected > 0 ? (
         <Typography
-          sx={{ flex: '1 1 100%' }}
+          sx={{ flex: "1 1 100%" }}
           color="inherit"
           variant="subtitle1"
           component="div"
@@ -197,12 +192,12 @@ function EnhancedTableToolbar(props) {
         </Typography>
       ) : (
         <Typography
-          sx={{ flex: '1 1 100%' }}
+          sx={{ flex: "1 1 100%" }}
           variant="h6"
           id="tableTitle"
           component="div"
         >
-          Academic Details of Students
+          Compare student
         </Typography>
       )}
 
@@ -227,21 +222,33 @@ EnhancedTableToolbar.propTypes = {
   numSelected: PropTypes.number.isRequired,
 };
 
-export default function ListStudent() {
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+export default function Data2Student() {
+  const studentA = {
+    name: "Ava cameron",
+    mathScore: 85,
+    physicsScore: 78,
+    chemistryScore: 92,
+    daysAbsent: 3
+  };
+
+  const studentB = {
+    name: "Angle Poole",
+    mathScore: 92,
+    physicsScore: 88,
+    chemistryScore: 95,
+    daysAbsent: 5
+  };
+  const [order, setOrder] = React.useState("asc");
+  const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [open, setOpen]= React.useState(false)
-  const [currentData, setCurrentData]= React.useState({})
-  const [compare, setCompare]= React.useState(false)
-  const [open2, setOpen2]= React.useState(false)
-
+  const [open, setOpen] = React.useState(false);
+  const [currentData, setCurrentData] = React.useState({});
 
   const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === 'asc';
-    setOrder(isAsc ? 'desc' : 'asc');
+    const isAsc = orderBy === property && order === "asc";
+    setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
 
@@ -267,7 +274,7 @@ export default function ListStudent() {
     } else if (selectedIndex > 0) {
       newSelected = newSelected.concat(
         selected.slice(0, selectedIndex),
-        selected.slice(selectedIndex + 1),
+        selected.slice(selectedIndex + 1)
       );
     }
 
@@ -283,8 +290,6 @@ export default function ListStudent() {
     setPage(0);
   };
 
-  
-
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
@@ -295,20 +300,20 @@ export default function ListStudent() {
     () =>
       stableSort(rows, getComparator(order, orderBy)).slice(
         page * rowsPerPage,
-        page * rowsPerPage + rowsPerPage,
+        page * rowsPerPage + rowsPerPage
       ),
-    [order, orderBy, page, rowsPerPage],
+    [order, orderBy, page, rowsPerPage]
   );
 
   return (
-    <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+    <Box sx={{ width: "100%" }}>
+      <Paper sx={{ width: "100%", mb: 2 }}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
             aria-labelledby="tableTitle"
-            size={ 'medium'}
+            size={"medium"}
           >
             <EnhancedTableHead
               numSelected={selected.length}
@@ -327,23 +332,23 @@ export default function ListStudent() {
                   <TableRow
                     hover
                     onClick={(event) => {
-                        handleClick(event, row.name)
-                        setCurrentData(row)
-                        setOpen(true)
+                      handleClick(event, row.name);
+                      setCurrentData(row);
+                      setOpen(true);
                     }}
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
                     key={row.name}
                     selected={isItemSelected}
-                    sx={{ cursor: 'pointer' }}
+                    sx={{ cursor: "pointer" }}
                   >
                     <TableCell padding="checkbox">
                       <Checkbox
                         color="primary"
                         checked={isItemSelected}
                         inputProps={{
-                          'aria-labelledby': labelId,
+                          "aria-labelledby": labelId,
                         }}
                       />
                     </TableCell>
@@ -358,24 +363,15 @@ export default function ListStudent() {
                     <TableCell align="right">{row.studentName}</TableCell>
                     <TableCell align="right">{row.gender}</TableCell>
                     <TableCell align="right">{row.gradeName}</TableCell>
-                    <TableCell align="right" style={{color: "#2e89ff", fontWeight: 600}}>{row.averageMarks}</TableCell>
+                    <TableCell
+                      align="right"
+                      style={{ color: "#2e89ff", fontWeight: 600 }}
+                    >
+                      {row.averageMarks}
+                    </TableCell>
                     <TableCell align="right">{row.gpa}</TableCell>
-                    <TableCell align="right">{row.classParticipationRate}</TableCell>
-                    <TableCell align="center">
-                      {
-                        compare=== false && <Button onClick={(e)=> {
-                        e.stopPropagation()
-                        console.log(1)
-                        setCompare(true)
-                      }} variant="contained">Compare with</Button>
-                      }
-                      {
-                        compare=== true && <Button onClick={(e)=> {
-                        e.stopPropagation()
-                        setOpen2(true)
-                        
-                      }} variant="contained">Compare</Button>
-                      }
+                    <TableCell align="right">
+                      {row.classParticipationRate}
                     </TableCell>
                   </TableRow>
                 );
@@ -383,7 +379,7 @@ export default function ListStudent() {
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (53) * emptyRows,
+                    height: 53 * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
@@ -401,9 +397,23 @@ export default function ListStudent() {
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            gap: 20
+          }}
+        >
+          <div style={{textAlign: "center"}}>Compare score 2 student: Ava cameron and Angle Poole</div>
+          <BarChartCompare student1={studentA} student2={studentB} />
+          <div style={{textAlign: "center"}}>Compare days absent 2 student: Ava cameron and Angle Poole</div>
+          <ComparePieChart student1={studentA} student2={studentB} />
+        </div>
       </Paper>
-      <AboutStudent open={open} setOpen={setOpen} {...currentData} />
-      <CompareStudent open={open2} setOpen={setOpen2} />
+      {/* <AboutStudent open={open} setOpen={setOpen} {...currentData} /> */}
     </Box>
   );
 }

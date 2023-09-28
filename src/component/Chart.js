@@ -1,7 +1,7 @@
 import React from "react";
-import BarChart from "./BarChart";
+// import BarChart from "./BarChart";
 import LineChart from "./LineChart";
-import PieChart from "./PieChart";
+// import PieChart from "./PieChart";
 // import ScatterChart from "./ScatterChart";
 import DonutChart from "./DonutChart";
 import CirclChartScore from "./componentscore/CirclChartScore";
