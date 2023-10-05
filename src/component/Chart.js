@@ -11,6 +11,8 @@ import CountStudent from "./filter/CountStudent";
 import ListStudent from "./student/ListStudent";
 import StatsSubject from "./StatsSubject";
 import HorizontalBarChart from "./BarHorizontalChart";
+import GatherChart from "./student/GatherChart";
+import TestChart from "./student/TestChart";
 
 const ChartGrid = ({ data }) => {
   // const grade1Percentage = 25;
@@ -40,7 +42,7 @@ const ChartGrid = ({ data }) => {
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ width: "100%" }}>
-                  <SelectGrade />
+                  <SelectGrade  />
                 </div>
               </div>
               <div style={{ flex: 1 }}>
@@ -63,6 +65,7 @@ const ChartGrid = ({ data }) => {
                 <DonutChart data={data} />
               </div>
             </div>
+
             <div style={{ width: "100%", maxWidth: "calc(100%)" }}>
               <StatsSubject
                 data={[
@@ -158,6 +161,26 @@ const ChartGrid = ({ data }) => {
               />
             </div>
           </div>
+        </div>
+        {/* <div
+          style={{
+            width: "100%",
+            maxWidth: "calc(100%)",
+            marginBottom: 12,
+          }}
+        >
+          <GatherChart />
+
+        </div> */}
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "calc(100%)",
+            marginBottom: 12,
+          }}
+        >
+          <TestChart />
+          
         </div>
         <div
           style={{

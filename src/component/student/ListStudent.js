@@ -205,6 +205,7 @@ function EnhancedTableToolbar(props) {
           Academic Details of Students
         </Typography>
       )}
+      {/* Chart new */}
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">

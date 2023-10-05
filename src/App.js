@@ -3,7 +3,6 @@ import "./component/style.css"
 import ChartGrid from './component/Chart';
 import Sidebar from './component/general/Sidebar';
 import Header from './component/general/Header';
-
 function App() {
   const data = [
     { label: 'A', value: 10, x: 5, y: 15 },
