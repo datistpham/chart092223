@@ -10,9 +10,10 @@ import SelectGrade from "./filter/SelectGrade";
 import CountStudent from "./filter/CountStudent";
 import ListStudent from "./student/ListStudent";
 import StatsSubject from "./StatsSubject";
-import HorizontalBarChart from "./BarHorizontalChart";
-import GatherChart from "./student/GatherChart";
+// import HorizontalBarChart from "./BarHorizontalChart";
+// import GatherChart from "./student/GatherChart";
 import TestChart from "./student/TestChart";
+// import NewChart1210N from "./student/NewChart1210N";
 
 const ChartGrid = ({ data }) => {
   // const grade1Percentage = 25;
@@ -172,6 +173,17 @@ const ChartGrid = ({ data }) => {
           <GatherChart />
 
         </div> */}
+        {/* <div
+          style={{
+            width: "100%",
+            maxWidth: "calc(100%)",
+            marginBottom: 12,
+          }}
+        >
+          <NewChart1210N />
+          
+        </div> */}
+        {/*  */}
         <div
           style={{
             width: "100%",

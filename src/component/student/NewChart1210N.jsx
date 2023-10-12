@@ -3,7 +3,7 @@ import * as d3 from "d3";
 // import FormGroup from "@mui/material/FormGroup";
 // import FormControlLabel from "@mui/material/FormControlLabel";
 // import Checkbox from "@mui/material/Checkbox";
-import { LineChart } from "react-d3-components";
+import { LineChart, BarChart } from "react-d3-components";
 import { Button } from "@mui/material";
 import FilterPopup from "./FilterPopup";
 import FilterPopup2 from "./FilterPopup2";
@@ -15,7 +15,7 @@ const margin = { top: 100, right: 20, bottom: 50, left: 190 };
 // const width = 450 - margin.left - margin.right;
 // const height = 350 - margin.top - margin.bottom;
 
-const TestChart = () => {
+const NewChart1210N = () => {
   const [xScale, setXScale] = useState(null);
 
   const [open, setOpen] = useState(false);
@@ -95,7 +95,7 @@ const TestChart = () => {
 
   const [data, setData] = useState([
     {
-      label: "K19",
+      label: "Năm 1",
       color: "#ff0",
       values: [
         { x: "K19", y: 58 },
@@ -106,7 +106,7 @@ const TestChart = () => {
       ],
     },
     {
-      label: "K20",
+      label: "Năm 2",
       values: [
         { x: "K19", y: 68 },
         { x: "K20", y: 60 },
@@ -116,7 +116,7 @@ const TestChart = () => {
       ],
     },
     {
-      label: "K21",
+      label: "Năm 2",
       values: [
         { x: "K19", y: 62 },
         { x: "K20", y: 57 },
@@ -126,7 +126,7 @@ const TestChart = () => {
       ],
     },
     {
-      label: "K22",
+      label: "Năm 3",
       values: [
         { x: "K19", y: 72 },
         { x: "K20", y: 67 },
@@ -187,7 +187,7 @@ const TestChart = () => {
       className="test_chart"
       style={{ display: "flex", justifyContent: "center", gap: 10 }}
     >
-      <LineChart
+      <BarChart
         data={data}
         width={800}
         height={450}
@@ -271,4 +271,4 @@ const TestChart = () => {
   );
 };
 
-export default TestChart;
+export default NewChart1210N;

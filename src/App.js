@@ -1,24 +1,32 @@
-import './App.css';
-import "./component/style.css"
-import ChartGrid from './component/Chart';
-import Sidebar from './component/general/Sidebar';
-import Header from './component/general/Header';
+import "./App.css";
+import "./component/style.css";
+import { CssBaseline } from "@mui/material";
+import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import { useState } from "react";
+import Home from "./pages/Home";
 function App() {
-  const data = [
-    { label: 'A', value: 10, x: 5, y: 15 },
-    { label: 'B', value: 20, x: 10, y: 25 },
-    { label: 'C', value: 15, x: 15, y: 35 },
-    { label: 'D', value: 25, x: 20, y: 45 },
-    // Thêm dữ liệu cho biểu đồ ở đây
-  ];
+  const [auth, setAuth] = useState(false);
+  const location = useLocation();
 
   return (
     <div className="App">
-      <Sidebar />
-      <div className="content">
-        <Header />
-        <ChartGrid data={data} />
-      </div>
+      <CssBaseline />
+      <Routes>
+        <Route path="/login" element={<Login setAuth={setAuth} />} />
+        <Route path="/signup" element={<Signup setAuth={setAuth} />} />
+        <Route
+          path="/"
+          element={
+            auth ? (
+              <Home setAuth={setAuth} />
+            ) : (
+              <Navigate to="/login" state={{ from: location }} replace />
+            )
+          }
+        />
+      </Routes>
     </div>
   );
 }
