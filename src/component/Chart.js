@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import BarChart from "./BarChart";
 import LineChart from "./LineChart";
 // import PieChart from "./PieChart";
@@ -13,10 +13,26 @@ import StatsSubject from "./StatsSubject";
 // import HorizontalBarChart from "./BarHorizontalChart";
 // import GatherChart from "./student/GatherChart";
 import TestChart from "./student/TestChart";
+import GpaHistogram from "./GPAHistogram";
+import TestChart2 from "./student/TestChart2";
 // import NewChart1210N from "./student/NewChart1210N";
 
 const ChartGrid = ({ data }) => {
   // const grade1Percentage = 25;
+  const [toggle, setToggle]= useState(false)
+  const handleToggle= ()=> {
+    setToggle(!toggle)
+  }
+
+  const gpaData = [
+    { key: 'k19', value: 3.2 },
+    { key: 'k20', value: 3.5 },
+    { key: 'k21', value: 3.8 },
+    { key: 'k22', value: 3.4 },
+    { key: 'k23', value: 3.1 },
+    // Thêm các dữ liệu khác nếu cần thiết
+  ];
+
   return (
     <div className="chart-grid-container">
       <div className="placeholder-sidebar"></div>
@@ -68,15 +84,35 @@ const ChartGrid = ({ data }) => {
             </div>
 
             <div style={{ width: "100%", maxWidth: "calc(100%)" }}>
-              <StatsSubject
-                data={[
-                  { group: "Math", Nitrogen: 50, normal: 20, stress: 10 },
-                  { group: "Physics", Nitrogen: 45, normal: 15, stress: 5 },
-                  { group: "Science", Nitrogen: 55, normal: 10, stress: 8 },
-                  { group: "History", Nitrogen: 40, normal: 18, stress: 12 },
-                  { group: "English", Nitrogen: 60, normal: 12, stress: 6 },
-                ]}
-              />
+              {
+                toggle=== false &&
+                <StatsSubject
+                  toggle={toggle}
+                  handleToggle={handleToggle}
+                  data={[
+                    { group: "Math", Nitrogen: 50, normal: 20, stress: 10 },
+                    { group: "Physics", Nitrogen: 45, normal: 15, stress: 5 },
+                    { group: "Science", Nitrogen: 55, normal: 10, stress: 8 },
+                    { group: "History", Nitrogen: 40, normal: 18, stress: 12 },
+                    { group: "English", Nitrogen: 60, normal: 12, stress: 6 },
+                  ]}
+                />
+              }
+              {/*  */}
+              {
+                toggle=== true &&
+                <TestChart2
+                  toggle={toggle}
+                  handleToggle={handleToggle}
+                  data={[
+                    { group: "Math", Nitrogen: 50, normal: 20, stress: 10 },
+                    { group: "Physics", Nitrogen: 45, normal: 15, stress: 5 },
+                    { group: "Science", Nitrogen: 55, normal: 10, stress: 8 },
+                    { group: "History", Nitrogen: 40, normal: 18, stress: 12 },
+                    { group: "English", Nitrogen: 60, normal: 12, stress: 6 },
+                  ]}
+                />
+              }
             </div>
           </div>
           {/*  */}
@@ -194,6 +230,30 @@ const ChartGrid = ({ data }) => {
           <TestChart />
           
         </div>
+        {/*  */}
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "calc(100%)",
+            marginBottom: 12,
+          }}
+        >
+          <TestChart2 />
+          
+        </div>
+        {/*  */}
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "calc(100%)",
+            marginBottom: 12,
+          }}
+        >
+          <h1 style={{marginBottom: 12}}>GPA Histogram</h1>
+          <GpaHistogram data={gpaData} />
+          
+        </div>
+        {/*  */}
         <div
           style={{
             width: "100%",

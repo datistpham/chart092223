@@ -198,7 +198,7 @@ const NewChart1210N = () => {
         legend={true}
         xTooltipFormat={(x) => `Category: ${x}`} // Định dạng cho x-axis tooltip
         yTooltipFormat={(y) => `Value: ${y}`} // Định dạng cho y-axis tooltip
-      
+        
       />
       <div
         style={{

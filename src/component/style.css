@@ -29,3 +29,8 @@
     padding: 20px; /* Khoảng cách bên trong mỗi biểu đồ */
   }
 
+
+
+  .y.axis.label {
+    transform: rotate(0deg) translateX(25px);
+  }

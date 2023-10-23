@@ -3,11 +3,20 @@ import * as d3 from "d3";
 import FilterByYear from "./student/NewChart1210N/FilterByYear";
 import { Button } from "@mui/material";
 import FilterBySubject from "./student/NewChart1210N/FilterBySubject";
-const BarChart = () => {
+const StatsSubject = (props) => {
   const svgRef = useRef();
   const [open, setOpen]= useState(false)
   const [open1, setOpen1]= useState(false)
   const [open2, setOpen2]= useState(false)
+  const [hoveredData, setHoveredData] = useState(null);
+
+    const handleMouseOver = (d) => {
+      setHoveredData(d);
+    };
+
+    const handleMouseOut = () => {
+      setHoveredData(null);
+    };
   const tData= [
     { name: "Year 1", score1: 42, score2: 60, score3: 70, score4: 90 },
     { name: "Year 2", score1: 50, score2: 61, score3: 67, score4: 92 },
@@ -270,13 +279,20 @@ const BarChart = () => {
         <svg ref={svgRef}></svg>
       </div>
       <div>
-        <Button style={{margin: "12px 0"}} variant="contained" onClick={()=> {
-          setOpen(!open)
-        }}>Filter by year</Button>
+        <div>
+          <Button style={{margin: "12px 0"}} variant="contained" onClick={()=> {
+            setOpen(!open)
+          }}>Filter by year</Button>
+        </div>
 {/* 
         <Button style={{margin: "12px 0"}} variant="contained" onClick={()=> {
           setOpen1(!open1)
         }}>Choose subject to filter</Button> */}
+        <div>
+          <Button style={{margin: "12px 0"}} variant="contained" onClick={()=> {
+            props?.handleToggle()
+          }}>Toggle chart</Button>
+        </div>
       </div>
      
       <FilterByYear open={open} onClose={handleClose} onDataFiltered={setData} data={tData } />
@@ -285,4 +301,4 @@ const BarChart = () => {
   );
 };
 
-export default BarChart;
+export default StatsSubject;

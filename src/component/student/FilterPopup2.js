@@ -51,7 +51,7 @@ const FilterPopup2 = ({ open, onClose, onDataFiltered, data }) => {
                   onChange={() => handleCheckboxChange(value.x)}
                 />
               }
-              label={value.x}
+              label={value.subject}
             />
           ))}
       </DialogContent>

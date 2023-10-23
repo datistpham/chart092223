@@ -3,7 +3,7 @@ import * as d3 from "d3";
 // import FormGroup from "@mui/material/FormGroup";
 // import FormControlLabel from "@mui/material/FormControlLabel";
 // import Checkbox from "@mui/material/Checkbox";
-import { LineChart } from "react-d3-components";
+import { LineChart, BarChart } from "react-d3-components";
 import { Button } from "@mui/material";
 import FilterPopup from "./FilterPopup";
 import FilterPopup2 from "./FilterPopup2";
@@ -52,42 +52,42 @@ const TestChart = () => {
       label: "K19",
       color: "#ff0",
       values: [
-        { x: "K19", y: 58 },
-        { x: "K20", y: 49 },
-        { x: "K21", y: 64 },
-        { x: "K22", y: 57 },
-        { x: "K23", y: 70 },
+        { x: "K19", y: 58 , subject: "Art"},
+        { x: "K20", y: 49 , subject: "Science"},
+        { x: "K21", y: 64, subject: "Bio" },
+        { x: "K22", y: 57, subject: "Math"  },
+        { x: "K23", y: 70 , subject: "Informatic"},
       ],
     },
     {
       label: "K20",
       values: [
-        { x: "K19", y: 68 },
-        { x: "K20", y: 60 },
-        { x: "K21", y: 57 },
-        { x: "K22", y: 42 },
-        { x: "K23", y: 75 },
+        { x: "K19", y: 68, subject: "Art" },
+        { x: "K20", y: 60, subject: "Science"  },
+        { x: "K21", y: 57, subject: "Bio" },
+        { x: "K22", y: 42, subject: "Math" },
+        { x: "K23", y: 75, subject: "Informatic" },
       ],
     },
 
     {
       label: "K21",
       values: [
-        { x: "K19", y: 62 },
-        { x: "K20", y: 57 },
-        { x: "K21", y: 70 },
-        { x: "K22", y: 52 },
-        { x: "K23", y: 62 },
+        { x: "K19", y: 62, subject: "Art" },
+        { x: "K20", y: 57, subject: "Science"  },
+        { x: "K21", y: 70, subject: "Bio" },
+        { x: "K22", y: 52, subject: "Math" },
+        { x: "K23", y: 62, subject: "Informatic" },
       ],
     },
     {
       label: "K22",
       values: [
-        { x: "K19", y: 72 },
-        { x: "K20", y: 67 },
-        { x: "K21", y: 60 },
-        { x: "K22", y: 55 },
-        { x: "K23", y: 65 },
+        { x: "K19", y: 72, subject: "Art" },
+        { x: "K20", y: 67, subject: "Science" },
+        { x: "K21", y: 60, subject: "Bio" },
+        { x: "K22", y: 55 , subject: "Math"},
+        { x: "K23", y: 65 , subject: "Informatic"},
       ],
     },
   ];
@@ -98,41 +98,41 @@ const TestChart = () => {
       label: "K19",
       color: "#ff0",
       values: [
-        { x: "K19", y: 58 },
-        { x: "K20", y: 49 },
-        { x: "K21", y: 64 },
-        { x: "K22", y: 57 },
-        { x: "K23", y: 70 },
+        { x: "K19", y: 58, subject: "Art" },
+        { x: "K20", y: 49, subject: "Science" },
+        { x: "K21", y: 64, subject: "Bio" },
+        { x: "K22", y: 57, subject: "Math" },
+        { x: "K23", y: 70, subject: "Informatic" },
       ],
     },
     {
       label: "K20",
       values: [
-        { x: "K19", y: 68 },
-        { x: "K20", y: 60 },
-        { x: "K21", y: 57 },
-        { x: "K22", y: 42 },
-        { x: "K23", y: 75 },
+        { x: "K19", y: 68, subject: "Art" },
+        { x: "K20", y: 60, subject: "Science" },
+        { x: "K21", y: 57, subject: "Bio" },
+        { x: "K22", y: 42, subject: "Math" },
+        { x: "K23", y: 75, subject: "Informatic" },
       ],
     },
     {
       label: "K21",
       values: [
-        { x: "K19", y: 62 },
-        { x: "K20", y: 57 },
-        { x: "K21", y: 70 },
-        { x: "K22", y: 52 },
-        { x: "K23", y: 62 },
+        { x: "K19", y: 62, subject: "Art" },
+        { x: "K20", y: 57 , subject: "Art"},
+        { x: "K21", y: 70 , subject: "Bio"},
+        { x: "K22", y: 52, subject: "Math" },
+        { x: "K23", y: 62, subject: "Informatic" },
       ],
     },
     {
       label: "K22",
       values: [
-        { x: "K19", y: 72 },
-        { x: "K20", y: 67 },
-        { x: "K21", y: 60 },
-        { x: "K22", y: 55 },
-        { x: "K23", y: 65 },
+        { x: "K19", y: 72, subject: "Art" },
+        { x: "K20", y: 67,  subject: "Science" },
+        { x: "K21", y: 60, subject: "Bio" },
+        { x: "K22", y: 55, subject: "Math" },
+        { x: "K23", y: 65 , subject: "Informatic" },
       ],
     },
   ]);
@@ -198,6 +198,8 @@ const TestChart = () => {
         legend={true}
         xTooltipFormat={(x) => `Category: ${x}`} // Định dạng cho x-axis tooltip
         yTooltipFormat={(y) => `Value: ${y}`} // Định dạng cho y-axis tooltip
+        xAxis={{ label: 'Batch'}}
+        yAxis={{ label: '%' , domain: [0, 100]}}
       
       />
       <div
