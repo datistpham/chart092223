@@ -34,3 +34,10 @@
   .y.axis.label {
     transform: rotate(0deg) translateX(25px);
   }
+
+  /* Trong file CSS của bạn */
+.dashed-line {
+  fill: none;
+  stroke: #FF5733; /* Màu của đường nét đứt */
+  stroke-width: 2;
+}

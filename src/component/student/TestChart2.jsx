@@ -64,45 +64,41 @@ const tooltipHtml = (x, y, z) => {
   };
   const tData = [
     {
-      label: "K19",
+      label: "Year 1",
       color: "#ff0",
       values: [
-        { x: "K19", y: 58, subject: "Art" },
-        { x: "K20", y: 49, subject: "Science" },
-        { x: "K21", y: 64, subject: "Bio" },
-        { x: "K22", y: 57, subject: "Math" },
-        { x: "K23", y: 70, subject: "Informatic" },
+        { x: "Year 1", y: 58, subject: "Art" },
+        { x: "Year 2", y: 49, subject: "Science" },
+        { x: "Year 3", y: 64, subject: "Bio" },
+        { x: "Year 4", y: 57, subject: "Math" },
       ],
     },
     {
-      label: "K20",
+      label: "Year 2",
       values: [
-        { x: "K19", y: 68, subject: "Art" },
-        { x: "K20", y: 60, subject: "Science" },
-        { x: "K21", y: 57, subject: "Bio" },
-        { x: "K22", y: 42, subject: "Math" },
-        { x: "K23", y: 75, subject: "Informatic" },
+        { x: "Year 1", y: 68, subject: "Art" },
+        { x: "Year 2", y: 60, subject: "Science" },
+        { x: "Year 3", y: 57, subject: "Bio" },
+        { x: "Year 4", y: 42, subject: "Math" },
       ],
     },
 
     {
-      label: "K21",
+      label: "Year 3",
       values: [
-        { x: "K19", y: 62, subject: "Art" },
-        { x: "K20", y: 57, subject: "Science" },
-        { x: "K21", y: 70, subject: "Bio" },
-        { x: "K22", y: 52, subject: "Math" },
-        { x: "K23", y: 62, subject: "Informatic" },
+        { x: "Year 1", y: 62, subject: "Art" },
+        { x: "Year 2", y: 57, subject: "Science" },
+        { x: "Year 3", y: 70, subject: "Bio" },
+        { x: "Year 4", y: 52, subject: "Math" },
       ],
     },
     {
-      label: "K22",
+      label: "Year 4",
       values: [
-        { x: "K19", y: 72, subject: "Art" },
-        { x: "K20", y: 67, subject: "Science" },
-        { x: "K21", y: 60, subject: "Bio" },
-        { x: "K22", y: 55, subject: "Math" },
-        { x: "K23", y: 65, subject: "Informatic" },
+        { x: "Year 1", y: 72, subject: "Art" },
+        { x: "Year 2", y: 67, subject: "Science" },
+        { x: "Year 3", y: 60, subject: "Bio" },
+        { x: "Year 4", y: 55, subject: "Math" },
       ],
     },
   ];
@@ -110,56 +106,42 @@ const tooltipHtml = (x, y, z) => {
 
   const [data, setData] = useState([
     {
-      label: "K19",
+      label: "Year 1",
       color: "#ff0",
       values: [
-        { x: "K19", y: 58, subject: "Art" },
-        { x: "K20", y: 49, subject: "Science" },
-        { x: "K21", y: 64, subject: "Bio" },
-        { x: "K22", y: 57, subject: "Math" },
-        { x: "K23", y: 70, subject: "Informatic" },
+        { x: "Year 1", y: 58, subject: "Art" },
+        { x: "Year 2", y: 49, subject: "Science" },
+        { x: "Year 3", y: 64, subject: "Bio" },
+        { x: "Year 4", y: 57, subject: "Math" },
       ],
     },
     {
-      label: "K20",
+      label: "Year 2",
       values: [
-        { x: "K19", y: 68, subject: "Art" },
-        { x: "K20", y: 60, subject: "Science" },
-        { x: "K21", y: 57, subject: "Bio" },
-        { x: "K22", y: 42, subject: "Math" },
-        { x: "K23", y: 75, subject: "Informatic" },
+        { x: "Year 1", y: 68, subject: "Art" },
+        { x: "Year 2", y: 60, subject: "Science" },
+        { x: "Year 3", y: 57, subject: "Bio" },
+        { x: "Year 4", y: 42, subject: "Math" },
       ],
     },
     {
-      label: "K21",
+      label: "Year 3",
       values: [
-        { x: "K19", y: 62, subject: "Art" },
-        { x: "K20", y: 57, subject: "Art" },
-        { x: "K21", y: 70, subject: "Bio" },
-        { x: "K22", y: 52, subject: "Math" },
-        { x: "K23", y: 62, subject: "Informatic" },
+        { x: "Year 1", y: 62, subject: "Art" },
+        { x: "Year 2", y: 57, subject: "Art" },
+        { x: "Year 3", y: 70, subject: "Bio" },
+        { x: "Year 4", y: 52, subject: "Math" },
       ],
     },
     {
-      label: "K22",
+      label: "Year 4",
       values: [
-        { x: "K19", y: 72, subject: "Art" },
-        { x: "K20", y: 67, subject: "Science" },
-        { x: "K21", y: 60, subject: "Bio" },
-        { x: "K22", y: 55, subject: "Math" },
-        { x: "K23", y: 65, subject: "Informatic" },
+        { x: "Year 1", y: 72, subject: "Art" },
+        { x: "Year 2", y: 67, subject: "Science" },
+        { x: "Year 3", y: 60, subject: "Bio" },
+        { x: "Year 4", y: 55, subject: "Math" },
       ],
-    },
-    {
-      label: "K23",
-      values: [
-        { x: "K19", y: 72, subject: "Art" },
-        { x: "K20", y: 67, subject: "Science" },
-        { x: "K21", y: 60, subject: "Bio" },
-        { x: "K22", y: 55, subject: "Math" },
-        { x: "K23", y: 65, subject: "Informatic" },
-      ],
-    },
+    }
   ]);
   const customColors = ["#FF5733", "#3498db", "#2ecc71", "#f39c12", "#2e89ff"];
   const colorScale = d3.scaleOrdinal().range(customColors);
@@ -192,14 +174,14 @@ const tooltipHtml = (x, y, z) => {
   };
 
   const colorK = (k) => {
-    if (k === "K19") {
+    if (k === "Year 1") {
       return "#f00";
     }
-    if (k === "K20") {
+    if (k === "Year 2") {
     }
-    if (k === "K21") {
+    if (k === "Year 3") {
     }
-    if (k === "K22") {
+    if (k === "Year 4") {
     }
   };
 
@@ -262,7 +244,7 @@ const tooltipHtml = (x, y, z) => {
           <div>Math</div>
         </div>
         {/*  */}
-        <div
+        {/* <div
           style={{
             display: "flex",
             justifyContent: "center",
@@ -274,7 +256,7 @@ const tooltipHtml = (x, y, z) => {
             style={{ width: 100, height: 30, backgroundColor: "#2e89ff" }}
           ></div>
           <div>Informatic</div>
-        </div>
+        </div> */}
       </div>
       <div style={{display: "flex", gap: 10, justifyContent: "center" }}>
         <BarChart

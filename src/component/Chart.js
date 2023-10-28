@@ -15,6 +15,7 @@ import StatsSubject from "./StatsSubject";
 import TestChart from "./student/TestChart";
 import GpaHistogram from "./GPAHistogram";
 import TestChart2 from "./student/TestChart2";
+import Chart3 from "./Chart3";
 // import NewChart1210N from "./student/NewChart1210N";
 
 const ChartGrid = ({ data }) => {
@@ -82,7 +83,9 @@ const ChartGrid = ({ data }) => {
                 <DonutChart data={data} />
               </div>
             </div>
-
+            <div style={{ width: "100%", maxWidth: "calc(100%)" }}>
+              <Chart3 />
+            </div>
             <div style={{ width: "100%", maxWidth: "calc(100%)" }}>
               {
                 toggle=== false &&
