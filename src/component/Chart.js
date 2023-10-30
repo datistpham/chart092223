@@ -16,6 +16,7 @@ import TestChart from "./student/TestChart";
 import GpaHistogram from "./GPAHistogram";
 import TestChart2 from "./student/TestChart2";
 import Chart3 from "./Chart3";
+import StatsSubject2 from "./StatsSubject2";
 // import NewChart1210N from "./student/NewChart1210N";
 
 const ChartGrid = ({ data }) => {
@@ -104,7 +105,7 @@ const ChartGrid = ({ data }) => {
               {/*  */}
               {
                 toggle=== true &&
-                <TestChart2
+                <StatsSubject2
                   toggle={toggle}
                   handleToggle={handleToggle}
                   data={[
@@ -254,6 +255,17 @@ const ChartGrid = ({ data }) => {
         >
           <h1 style={{marginBottom: 12}}>GPA Histogram</h1>
           <GpaHistogram data={gpaData} />
+          
+        </div>
+        <div
+          style={{
+            width: "100%",
+            maxWidth: "calc(100%)",
+            marginBottom: 12,
+          }}
+        >
+          <h1 style={{marginBottom: 12}}>G-am</h1>
+          <StatsSubject2 data={gpaData} />
           
         </div>
         {/*  */}
