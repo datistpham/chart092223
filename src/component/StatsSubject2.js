@@ -15,7 +15,7 @@ const StatsSubject2 = (props) => {
     { name: "Year 4", score1: 100, score2: 97, score3: 95, score4: 94 },
   ]);
   const dashedLineData = [
-    { name: "Year 1", score1: 20, x: 0  },
+    { name: "Year 1", score1: 20, x: 0 },
     { name: "Year 2", score1: 40 },
     { name: "Year 3", score1: 70 },
     { name: "Year 4", score1: 100, x: 880 },
@@ -66,6 +66,58 @@ const StatsSubject2 = (props) => {
       .style("stroke-width", 2)
       .style("fill", "none");
 
+
+    const line2Generator = d3
+      .line()
+      .x((d) => xScale(d.name) + xScale.bandwidth() / 2)
+      .y((d) => yScale(d.score2));
+
+    const line3Generator = d3
+      .line()
+      .x((d) => xScale(d.name) + xScale.bandwidth() / 2)
+      .y((d) => yScale(d.score3));
+
+    const line4Generator = d3
+      .line()
+      .x((d) => xScale(d.name) + xScale.bandwidth() / 2)
+      .y((d) => yScale(d.score4));
+
+    // Append lines to the chart
+    chart
+      .append("path")
+      .datum(data)
+      .attr("class", "line-chart")
+      .attr("d", lineGenerator)
+      .style("stroke", "orange")
+      .style("stroke-width", 2)
+      .style("fill", "none");
+
+    chart
+      .append("path")
+      .datum(data)
+      .attr("class", "line-chart")
+      .attr("d", line2Generator)
+      .style("stroke", "blue")
+      .style("stroke-width", 2)
+      .style("fill", "none");
+
+    chart
+      .append("path")
+      .datum(data)
+      .attr("class", "line-chart")
+      .attr("d", line3Generator)
+      .style("stroke", "yellow")
+      .style("stroke-width", 2)
+      .style("fill", "none");
+
+    chart
+      .append("path")
+      .datum(data)
+      .attr("class", "line-chart")
+      .attr("d", line4Generator)
+      .style("stroke", "green")
+      .style("stroke-width", 2)
+      .style("fill", "none");
     chart
       .append("g")
       .attr("transform", `translate(0, ${height})`)
@@ -77,13 +129,19 @@ const StatsSubject2 = (props) => {
       .append("text")
       .text("Compare percent complete subject between year school")
       .style("font-size", "20px")
-      .attr("transform", `translate(${0 - margin.left}, ${0 - margin.top / 2})`);
+      .attr(
+        "transform",
+        `translate(${0 - margin.left}, ${0 - margin.top / 2})`
+      );
 
     chart
       .append("text")
       .text("Compare percent complete subject between year school")
       .attr("text-anchor", "middle")
-      .attr("transform", `translate(${width / 2}, ${height + margin.bottom / 2})`);
+      .attr(
+        "transform",
+        `translate(${width / 2}, ${height + margin.bottom / 2})`
+      );
 
     chart
       .append("text")
@@ -92,15 +150,15 @@ const StatsSubject2 = (props) => {
       .attr("text-anchor", "middle")
       .attr("x", 0 - height / 2)
       .attr("y", 0 - margin.left / 2);
-      const dashedLineGenerator = d3
+    const dashedLineGenerator = d3
       .line()
       .x((d) => {
-        console.log(xScale(d.name) + barWidth / 2)
-        if(xScale(d.name) + barWidth / 2== 682) {
-          return 812
+        console.log(xScale(d.name) + barWidth / 2);
+        if (xScale(d.name) + barWidth / 2 == 682) {
+          return 812;
         }
-        return xScale(d.name) + barWidth / 2
-      } )
+        return xScale(d.name) + barWidth / 2;
+      })
       .y((d) => yScale(d.score1));
 
     const dashedLine = chart
@@ -146,7 +204,11 @@ const StatsSubject2 = (props) => {
         onDataFiltered={setData}
         data={data}
       />
-      <FilterBySubject open={open1} onClose={() => setOpen1(false)} onDataFiltered={setData} />
+      <FilterBySubject
+        open={open1}
+        onClose={() => setOpen1(false)}
+        onDataFiltered={setData}
+      />
     </div>
   );
 };

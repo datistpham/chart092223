@@ -265,7 +265,7 @@ const ChartGrid = ({ data }) => {
           }}
         >
           <h1 style={{marginBottom: 12}}>G-am</h1>
-          <StatsSubject2 data={gpaData} />
+          <StatsSubject2 data={gpaData} handleToggle={handleToggle} />
           
         </div>
         {/*  */}
