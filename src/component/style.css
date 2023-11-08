@@ -41,3 +41,7 @@
   stroke: #FF5733; /* Màu của đường nét đứt */
   stroke-width: 2;
 }
+
+.tooltip-custom {
+  transform: translate(-50%, 0);
+}

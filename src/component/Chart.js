@@ -17,6 +17,7 @@ import GpaHistogram from "./GPAHistogram";
 import TestChart2 from "./student/TestChart2";
 import Chart3 from "./Chart3";
 import StatsSubject2 from "./StatsSubject2";
+import StatsSubject3 from "./StatsSubject3";
 // import NewChart1210N from "./student/NewChart1210N";
 
 const ChartGrid = ({ data }) => {
@@ -265,8 +266,8 @@ const ChartGrid = ({ data }) => {
           }}
         >
           <h1 style={{marginBottom: 12}}>G-am</h1>
-          <StatsSubject2 data={gpaData} handleToggle={handleToggle} />
-          
+          {/* <StatsSubject2 data={gpaData} handleToggle={handleToggle} /> */}
+          <StatsSubject3 handleToggle={handleToggle} />
         </div>
         {/*  */}
         <div
