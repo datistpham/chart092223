@@ -3,11 +3,13 @@ import * as d3 from "d3";
 import FilterByYear from "./student/NewChart1210N/FilterByYear";
 import { Button } from "@mui/material";
 import FilterBySubject from "./student/NewChart1210N/FilterBySubject";
+// import TableHoverCharts from "./components/TableHoverChart";
 const StatsSubject3 = (props) => {
   const svgRef = useRef();
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
-  const [open2, setOpen2] = useState(false);
+  const [openHoverChart, setOpenHoverChart] = useState(false);
+  // const [open2, setOpen2] = useState(false);
   const [hoveredData, setHoveredData] = useState(null);
   // eslint-disable-next-line
   const handleMouseOver = (d) => {
@@ -24,33 +26,57 @@ const StatsSubject3 = (props) => {
     { name: "Year 4", score1: 100, score2: 97, score3: 95 },
   ];
   // eslint-disable-next-line
-  const dashedLineData = [
+  const tdashedLineData = [
     { name: "Year 1", score1: 20, x: 0 },
     { name: "Year 2", score1: 40 },
     { name: "Year 3", score1: 70 },
     { name: "Year 4", score1: 100, x: 880 },
   ];
-  // eslint-disable-next-line
-  const lineDataIT = [
+  const [dashedLineData, setDashedLineData] = useState([
+    { name: "Year 1", score1: 20, x: 0 },
+    { name: "Year 2", score1: 40 },
+    { name: "Year 3", score1: 70 },
+    { name: "Year 4", score1: 100, x: 880 },
+  ]);
+  const tLineDataIT = [
     { name: "Year 1", score1: 23, x: 0 },
     { name: "Year 2", score1: 46 },
     { name: "Year 3", score1: 77 },
     { name: "Year 4", score1: 98, x: 880 },
   ];
   // eslint-disable-next-line
-  const lineDataIT2 = [
+  const [lineDataIT, setLineDataIT] = useState([
+    { name: "Year 1", score1: 23, x: 0 },
+    { name: "Year 2", score1: 46 },
+    { name: "Year 3", score1: 77 },
+    { name: "Year 4", score1: 98, x: 880 },
+  ]);
+  const tLineDataIT2 = [
     { name: "Year 1", score1: 26, x: 0 },
     { name: "Year 2", score1: 47 },
     { name: "Year 3", score1: 72 },
     { name: "Year 4", score1: 91, x: 880 },
   ];
   // eslint-disable-next-line
-  const lineDataIT3 = [
+  const [lineDataIT2, setLineDataIT2] = useState([
+    { name: "Year 1", score1: 26, x: 0 },
+    { name: "Year 2", score1: 47 },
+    { name: "Year 3", score1: 72 },
+    { name: "Year 4", score1: 91, x: 880 },
+  ]);
+  const tLineDataIT3 = [
     { name: "Year 1", score1: 29, x: 0 },
     { name: "Year 2", score1: 50 },
     { name: "Year 3", score1: 80 },
     { name: "Year 4", score1: 90, x: 880 },
   ];
+  // eslint-disable-next-line
+  const [lineDataIT3, setLineDataIT3] = useState([
+    { name: "Year 1", score1: 29, x: 0 },
+    { name: "Year 2", score1: 50 },
+    { name: "Year 3", score1: 80 },
+    { name: "Year 4", score1: 90, x: 880 },
+  ]);
 
   const [data, setData] = useState([
     { name: "Year 1", score1: 22, score2: 19, score3: 18 },
@@ -99,7 +125,17 @@ const StatsSubject3 = (props) => {
       d.score2 = parseInt(d.score2);
       d.score3 = parseInt(d.score3);
     });
-
+    //
+    const tooltip1 = chart
+      .append("text")
+      .attr("class", "tooltip")
+      .style("opacity", 0);
+    tooltip1
+      .style("font-size", "12px")
+      .style("background-color", "rgba(255, 255, 255, 0.8)")
+      .style("border", "1px solid #ccc")
+      .style("border-radius", "5px")
+      .style("padding", "8px");
     // Use JS to sort array by score
     // data = data.sort(function(a, b) {
     //   return a.score1 - b.score1
@@ -150,7 +186,35 @@ const StatsSubject3 = (props) => {
       })
       .attr("width", barWidth - 5)
       .attr("height", (d) => height - yScale(d.score1))
-      .style("fill", "orange");
+      .style("fill", "orange")
+      .on("mouseover", function (event, d) {
+        console.log("d", d)
+        if(d.name=== "Year 1") {
+          props?.setRow(props?.rows)
+        }
+        if(d.name=== "Year 2") {
+          props?.setRow(props?.rows1)
+          
+        }
+        if(d.name=== "Year 3") {
+          props?.setRow(props?.rows2)
+          
+        }
+        setOpenHoverChart(true);
+        const xPosition = event.target.x.baseVal.value;
+        const yPosition = event.target.y.baseVal.value;
+        // console.log("x position", xPosition)
+        // console.log("y position", yPosition)
+        tooltip1.transition().duration(200).style("opacity", 0.9);
+        tooltip
+          .html(`Year: ${d.name}<br>Score: ${d.score1}`)
+          .attr("x", xPosition)
+          .attr("y", yPosition - 15);
+      })
+      .on("mouseout", function () {
+        setOpenHoverChart(false);
+        tooltip1.transition().duration(500).style("opacity", 0);
+      });
 
     bar2
       .append("rect")
@@ -258,7 +322,6 @@ const StatsSubject3 = (props) => {
     const dashedLineGenerator = d3
       .line()
       .x((d) => {
-        console.log(xScale(d.name) + barWidth / 2);
         if (xScale(d.name) + barWidth / 2 == 682) {
           return 790;
         }
@@ -301,8 +364,6 @@ const StatsSubject3 = (props) => {
 
     // Thêm sự kiện mouseover và mouseout vào đường của bạn
     lineDataIt3.on("mouseover", function (d, i, x) {
-      console.log(d);
-      console.log(i);
       tooltip
         .style("opacity", 1)
         .style("transform", "100% , 0")
@@ -312,20 +373,17 @@ const StatsSubject3 = (props) => {
           .text(`Score: ${i[0].score1}`)
           .attr("x", d.x + "px")
           .attr("y", d.y + "px");
-      }
-      else if (d.x <= 650) {
+      } else if (d.x <= 650) {
         tooltip
           .text(`Score: ${i[1].score1}`)
           .attr("x", d.x + "px")
           .attr("y", d.y + "px");
-      }
-      else if (d.x <= 650) {
+      } else if (d.x <= 650) {
         tooltip
           .text(`Score: ${i[1].score1}`)
           .attr("x", d.x + "px")
           .attr("y", d.y + "px");
-      }
-      else if (d.x <= 650) {
+      } else if (d.x <= 650) {
         tooltip
           .text(`Score: ${i[1].score1}`)
           .attr("x", d.x + "px")
@@ -338,7 +396,15 @@ const StatsSubject3 = (props) => {
   }, [data, dashedLineData, lineDataIT, lineDataIT2, lineDataIT3]);
 
   return (
-    <div style={{ width: "100%", display: "flex", gap: 10, marginTop: 16 }}>
+    <div
+      style={{
+        width: "100%",
+        display: "flex",
+        gap: 10,
+        marginTop: 16,
+        position: "relative",
+      }}
+    >
       <div>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <div
@@ -399,7 +465,7 @@ const StatsSubject3 = (props) => {
         <Button style={{margin: "12px 0"}} variant="contained" onClick={()=> {
           setOpen1(!open1)
         }}>Choose subject to filter</Button> */}
-        <div>
+        {/* <div>
           <Button
             style={{ margin: "12px 0" }}
             variant="contained"
@@ -409,20 +475,34 @@ const StatsSubject3 = (props) => {
           >
             Toggle chart
           </Button>
-        </div>
+        </div> */}
       </div>
 
       <FilterByYear
         open={open}
         onClose={handleClose}
         onDataFiltered={setData}
-        data={tData}
+        data={data}
+        tData={tData}
+        setDashedLineData={setDashedLineData}
+        tdashedLineData={tdashedLineData}
+        dashedLineData={dashedLineData}
+        tLineDataIT={tLineDataIT}
+        lineDataIT={lineDataIT}
+        setLineDataIT={setLineDataIT}
+        tLineDataIT2={tLineDataIT2}
+        lineDataIT2={lineDataIT2}
+        setLineDataIT2={setLineDataIT2}
+        tLineDataIT3={tLineDataIT3}
+        lineDataIT3={lineDataIT3}
+        setLineDataIT3={setLineDataIT3}
       />
       <FilterBySubject
         open={open1}
         onClose={handleClose1}
         onDataFiltered={setData}
       />
+      {/* {openHoverChart === true && <TableHoverCharts />} */}
     </div>
   );
 };

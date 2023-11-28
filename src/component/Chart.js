@@ -18,14 +18,40 @@ import TestChart2 from "./student/TestChart2";
 import Chart3 from "./Chart3";
 import StatsSubject2 from "./StatsSubject2";
 import StatsSubject3 from "./StatsSubject3";
+import TableHoverCharts from "./components/TableHoverChart";
 // import NewChart1210N from "./student/NewChart1210N";
 
 const ChartGrid = ({ data }) => {
   // const grade1Percentage = 25;
-  const [toggle, setToggle]= useState(false)
-  const handleToggle= ()=> {
+  const [toggle, setToggle] = useState(false)
+  const handleToggle = () => {
     setToggle(!toggle)
   }
+
+  function createData(course, expected_sem, sem1, sem2, sem3, sem4, sem5, sem6, sem7, sem8, sem9, sem_above) {
+    return { course, expected_sem, sem1, sem2, sem3, sem4, sem5, sem6, sem7, sem8, sem9, sem_above };
+  }
+
+  const rows = [
+    createData("DSA", "Sem 2", "95%", "87%", "88%", "92%", "100%", "96%", "", "", "", ""),
+    createData("PPL", "Sem 1", "99%", "88%", "91%", "100%", "89%", "95%", "", "", "", ""),
+    createData("CA", "Sem 1", "86%", "90%", "87%", "98%", "100%", "92%", "87%", "89%", "95%", "100%"),
+
+  ];
+
+  const rows1 = [
+    createData("Algorithms", "Sem 2", "90%", "88%", "97%", "89%", "93%", "100%", "", "", "", ""),
+    createData("Database", "Sem 1", "85%", "92%", "95%", "86%", "100%", "91%", "", "", "", ""),
+    createData("Networking", "Sem 1", "95%", "89%", "87%", "96%", "88%", "99%", "90%", "86%", "100%", "88%"),
+  ];
+
+  const rows2 = [
+    createData("Operating Systems", "Sem 2", "88%", "96%", "91%", "89%", "92%", "100%", "", "", "", ""),
+    createData("Software Engineering", "Sem 1", "97%", "89%", "95%", "88%", "100%", "91%", "", "", "", ""),
+    createData("Machine Learning", "Sem 1", "90%", "88%", "96%", "92%", "87%", "99%", "94%", "89%", "100%", "86%"),
+  ];
+
+  const [row, setRow] = useState(rows)
 
   const gpaData = [
     { key: 'k19', value: 3.2 },
@@ -62,7 +88,7 @@ const ChartGrid = ({ data }) => {
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ width: "100%" }}>
-                  <SelectGrade  />
+                  <SelectGrade />
                 </div>
               </div>
               <div style={{ flex: 1 }}>
@@ -90,7 +116,7 @@ const ChartGrid = ({ data }) => {
             </div>
             <div style={{ width: "100%", maxWidth: "calc(100%)" }}>
               {
-                toggle=== false &&
+                toggle === false &&
                 <StatsSubject
                   toggle={toggle}
                   handleToggle={handleToggle}
@@ -105,7 +131,7 @@ const ChartGrid = ({ data }) => {
               }
               {/*  */}
               {
-                toggle=== true &&
+                toggle === true &&
                 <StatsSubject2
                   toggle={toggle}
                   handleToggle={handleToggle}
@@ -233,7 +259,7 @@ const ChartGrid = ({ data }) => {
           }}
         >
           <TestChart />
-          
+
         </div>
         {/*  */}
         <div
@@ -244,7 +270,7 @@ const ChartGrid = ({ data }) => {
           }}
         >
           <TestChart2 />
-          
+
         </div>
         {/*  */}
         <div
@@ -254,9 +280,9 @@ const ChartGrid = ({ data }) => {
             marginBottom: 12,
           }}
         >
-          <h1 style={{marginBottom: 12}}>GPA Histogram</h1>
+          <h1 style={{ marginBottom: 12 }}>GPA Histogram</h1>
           <GpaHistogram data={gpaData} />
-          
+
         </div>
         <div
           style={{
@@ -265,9 +291,9 @@ const ChartGrid = ({ data }) => {
             marginBottom: 12,
           }}
         >
-          <h1 style={{marginBottom: 12}}>G-am</h1>
+          <h1 style={{ marginBottom: 12 }}>G-am</h1>
           {/* <StatsSubject2 data={gpaData} handleToggle={handleToggle} /> */}
-          <StatsSubject3 handleToggle={handleToggle} />
+          <StatsSubject3 setRow={setRow} rows={rows} rows2={rows2} rows1={rows1} handleToggle={handleToggle} />
         </div>
         {/*  */}
         <div
@@ -277,10 +303,11 @@ const ChartGrid = ({ data }) => {
             marginBottom: 12,
           }}
         >
-          <ListStudent />
+          {/* <ListStudent /> */}
+          <TableHoverCharts rows={row} />
         </div>
       </div>
-     
+
     </div>
   );
 };

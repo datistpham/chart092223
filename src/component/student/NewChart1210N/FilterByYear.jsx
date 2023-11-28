@@ -1,7 +1,7 @@
 import { Button, Checkbox, Dialog, DialogActions, DialogContent, FormControlLabel } from "@mui/material";
 import { useEffect, useState } from "react";
 
-const FilterByYear = ({ open, onClose, onDataFiltered, data }) => {
+const FilterByYear = ({ open, onClose, onDataFiltered, data, tData, setDashedLineData, dashedLineData, tdashedLineData, lineDataIT, setLineDataIT, tLineDataIT, lineDataIT2, setLineDataIT2, tLineDataIT2, lineDataIT3, setLineDataIT3, tLineDataIT3 }) => {
     const [selectedFilters, setSelectedFilters] = useState([]);
   
     const handleCheckboxChange = (filter) => {
@@ -13,8 +13,16 @@ const FilterByYear = ({ open, onClose, onDataFiltered, data }) => {
     };
     
     const applyFilters = () => {
-      const filteredData = data.filter((item) => selectedFilters.includes(item.name));
+      const filteredData = tData.filter((item) => selectedFilters.includes(item.name));
+      const filterDashedLineData= tdashedLineData.filter((item)=> selectedFilters.includes(item.name))
+      const filterLineDataIT= tLineDataIT.filter(item=> selectedFilters.includes(item.name))
+      const filterLineDataIT2= tLineDataIT2.filter(item=> selectedFilters.includes(item.name))
+      const filterLineDataIT3= tLineDataIT3.filter(item=> selectedFilters.includes(item.name))
+      setDashedLineData(filterDashedLineData)
       onDataFiltered(filteredData);
+      setLineDataIT(filterLineDataIT)
+      setLineDataIT2(filterLineDataIT2)
+      setLineDataIT3(filterLineDataIT3)
       onClose();
     };
 
