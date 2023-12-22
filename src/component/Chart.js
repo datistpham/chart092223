@@ -19,6 +19,7 @@ import Chart3 from "./Chart3";
 import StatsSubject2 from "./StatsSubject2";
 import StatsSubject3 from "./StatsSubject3";
 import TableHoverCharts from "./components/TableHoverChart";
+import EnrollmentChart from "./EnrollmentChart";
 // import NewChart1210N from "./student/NewChart1210N";
 
 const ChartGrid = ({ data }) => {
@@ -113,6 +114,9 @@ const ChartGrid = ({ data }) => {
             </div>
             <div style={{ width: "100%", maxWidth: "calc(100%)" }}>
               <Chart3 />
+            </div>
+            <div style={{width: "100%", maxWidth: "100%"}}>
+              <EnrollmentChart />
             </div>
             <div style={{ width: "100%", maxWidth: "calc(100%)" }}>
               {
@@ -270,7 +274,6 @@ const ChartGrid = ({ data }) => {
           }}
         >
           <TestChart2 />
-
         </div>
         {/*  */}
         <div

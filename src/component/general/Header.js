@@ -1,5 +1,6 @@
 import React from 'react';
 import './Header.css'; // Import file CSS
+import ExcelToJsonConverterDialog from './PopupConvert';
 
 const Header = () => {
   return (
@@ -12,6 +13,7 @@ const Header = () => {
           <li><a href="#">Chart 1</a></li>
           <li><a href="#">Chart 2</a></li>
           <li><a href="#">Contact</a></li>
+          <ExcelToJsonConverterDialog />
         </ul>
       </nav>
     </header>

@@ -23,15 +23,19 @@ const TestChart2 = (props) => {
   const [open3, setOpen3] = useState(false);
   const [open4, setOpen4] = useState(false);
   const [hoveredData, setHoveredData] = useState(null);
-// Hàm để tạo nội dung cho tooltip
-const tooltipHtml = (x, y, z) => {
-    console.log(z)
-    return <div><strong>Pass:</strong> {z}</div>;
+  // Hàm để tạo nội dung cho tooltip
+  const tooltipHtml = (x, y, z) => {
+    console.log(z);
+    return (
+      <div>
+        <strong>Pass:</strong> {z}
+      </div>
+    );
   };
 
   const handleMouseOver = (d) => {
     setHoveredData(d);
-    console.log(1)
+    console.log(1);
   };
 
   const handleMouseOut = () => {
@@ -141,7 +145,7 @@ const tooltipHtml = (x, y, z) => {
         { x: "Year 3", y: 60, subject: "Bio" },
         { x: "Year 4", y: 55, subject: "Math" },
       ],
-    }
+    },
   ]);
   const customColors = ["#FF5733", "#3498db", "#2ecc71", "#f39c12", "#2e89ff"];
   const colorScale = d3.scaleOrdinal().range(customColors);
@@ -188,7 +192,12 @@ const tooltipHtml = (x, y, z) => {
   return (
     <div
       className="test_chart"
-      style={{ display: "flex", gap: 10, flexDirection: "column", marginTop: 12 }}
+      style={{
+        display: "flex",
+        gap: 10,
+        flexDirection: "column",
+        marginTop: 12,
+      }}
     >
       <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
         <div
@@ -258,12 +267,11 @@ const tooltipHtml = (x, y, z) => {
           <div>Informatic</div>
         </div> */}
       </div>
-      <div style={{display: "flex", gap: 10, justifyContent: "center" }}>
+      <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
         <BarChart
           data={data}
           width={800}
           height={450}
-          xScale={xScale} // Truyền xScale vào LineChart
           margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
           onMouseEnter={(datum) => console.log(datum)}
           onMouseOutCallback={(datum) => console.log(datum)}
@@ -331,9 +339,12 @@ const tooltipHtml = (x, y, z) => {
               justifyContent: "flex-start",
             }}
           >
-            <Button variant={"contained"} onClick={()=> {
-                props?.handleToggle()
-            }}>
+            <Button
+              variant={"contained"}
+              onClick={() => {
+                props?.handleToggle();
+              }}
+            >
               Toggle chart
             </Button>
           </div>
