@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import HorizontalBarChart from "./BarHorizontalChart";
+import { AppContext } from "../App";
 
 const LineChart = ({ data }) => {
+  const {data1 }= useContext(AppContext)
+  
   return (
     <div className="chart-container">
       <HorizontalBarChart
