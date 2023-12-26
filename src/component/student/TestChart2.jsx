@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import * as d3 from "d3";
 // import FormGroup from "@mui/material/FormGroup";
 // import FormControlLabel from "@mui/material/FormControlLabel";
@@ -9,6 +9,7 @@ import FilterPopup from "./FilterPopup";
 import FilterPopup2 from "./FilterPopup2";
 import FilterPopup3 from "./FilterPopup3";
 import FilterPopup4 from "./FilterPopup4";
+import { AppContext } from "../../App";
 
 // set the dimensions and margins of the graph
 const margin = { top: 100, right: 20, bottom: 50, left: 190 };
@@ -16,6 +17,61 @@ const margin = { top: 100, right: 20, bottom: 50, left: 190 };
 // const height = 350 - margin.top - margin.bottom;
 
 const TestChart2 = (props) => {
+  const { data1, data2 } = useContext(AppContext);
+  // Tạo đối tượng để lưu trữ thông tin môn học, năm học và điểm
+  const resultArray = [];
+
+  // Duyệt qua mảng scoresData
+  data2.forEach((scoreItem) => {
+    // Tìm môn học trong mảng coursesData
+    const courseInfo = data1.find((courseItem) =>
+      scoreItem.course.includes(courseItem["course_code"])
+    );
+
+    // Nếu tìm thấy thông tin môn học, thêm thông tin vào resultArray
+    if (courseInfo) {
+      const resultItem = {
+        course: courseInfo["course_code"],
+        year: courseInfo.year,
+        enrollment: scoreItem.enrollment,
+        score: scoreItem.score,
+      };
+
+      resultArray.push(resultItem);
+    }
+  });
+  // Tạo đối tượng Map để lưu trữ thông tin môn học, năm học, điểm và số lượng đếm
+  const resultMap = new Map();
+
+  // Duyệt qua mảng inputArray
+  resultArray.forEach((item) => {
+    const key = `${item.enrollment}_${item.year}`;
+
+    // Nếu key chưa tồn tại trong Map, thêm key và khởi tạo giá trị
+    if (!resultMap.has(key)) {
+      resultMap.set(key, { totalScore: 0, count: 0 });
+    }
+
+    // Cập nhật tổng điểm và số lượng
+    resultMap.get(key).totalScore += item.score;
+    resultMap.get(key).count += 1;
+  });
+
+  // Tạo mảng kết quả từ Map
+  const finalArray = Array.from(resultMap, ([key, value]) => {
+    const [enrollment, year, course] = key.split("_");
+    const averageScore = value.count > 0 ? value.totalScore / value.count : 0;
+
+    return {
+      // course: item.course,
+      year: parseInt(year),
+      enrollment: parseInt(enrollment),
+      score: averageScore,
+      course
+    };
+  });
+
+  console.log("final array", finalArray.filter(item => item.enrollment > 17));
   const [xScale, setXScale] = useState(null);
 
   const [open, setOpen] = useState(false);
@@ -273,8 +329,8 @@ const TestChart2 = (props) => {
           width={800}
           height={450}
           margin={{ top: 10, bottom: 50, left: 50, right: 10 }}
-          onMouseEnter={(datum) => console.log(datum)}
-          onMouseOutCallback={(datum) => console.log(datum)}
+          // onMouseEnter={(datum) => console.log(datum)}
+          // onMouseOutCallback={(datum) => console.log(datum)}
           legend={true}
           xTooltipFormat={(x) => `Category: ${x}`} // Định dạng cho x-axis tooltip
           yTooltipFormat={(y) => `Value: ${y}`} // Định dạng cho y-axis tooltip

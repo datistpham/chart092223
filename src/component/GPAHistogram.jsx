@@ -1,9 +1,53 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
+import { AppContext } from "../App";
 
-const GpaHistogram = ({ data }) => {
+const GpaHistogram = () => {
+  const [data, setData] = useState([]);
   const svgRef = useRef();
+  const { data2 } = useContext(AppContext);
 
+  useEffect(() => {
+    // Tạo một đối tượng để lưu trữ tổng điểm và số lượng môn học cho mỗi enrollment
+    const enrollmentScores = {};
+
+    // Tính tổng điểm và số lượng môn học cho mỗi enrollment
+    data2.forEach((item) => {
+      if (item.score !== undefined) {
+        if (!enrollmentScores[item.enrollment]) {
+          enrollmentScores[item.enrollment] = { totalScore: 0, count: 0 };
+        }
+
+        enrollmentScores[item.enrollment].totalScore += item.score;
+        enrollmentScores[item.enrollment].count += 1;
+      }
+    });
+
+    // Tạo mảng mới chỉ chứa thông tin của từng enrollment mà không lặp lại
+    const uniqueEnrollments = Object.keys(enrollmentScores).map(
+      (enrollment) => {
+        const enrollmentData = enrollmentScores[enrollment];
+        const averageScore = enrollmentData.totalScore / enrollmentData.count;
+        // Chuyển điểm trung bình về thang điểm 4 (điểm trung bình / 25)
+        const averageScoreOn4Scale = averageScore / 25;
+        // Làm tròn số điểm trung bình trên thang điểm 4 nếu cần
+        const roundedAverageScoreOn4Scale =
+          Math.round(averageScoreOn4Scale * 100) / 100;
+
+        return {
+          enrollment: enrollment,
+          averageScore: averageScore,
+          averageScoreOn4Scale: roundedAverageScoreOn4Scale,
+        };
+      }
+    );
+    setData(
+      uniqueEnrollments.map((item) => ({
+        key: `k${item.enrollment}`,
+        value: item.averageScoreOn4Scale,
+      }))
+    );
+  }, [data2]);
   useEffect(() => {
     const margin = { top: 20, right: 30, bottom: 60, left: 60 };
     const width = 800 - margin.left - margin.right;

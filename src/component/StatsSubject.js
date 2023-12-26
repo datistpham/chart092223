@@ -1,9 +1,12 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import * as d3 from "d3";
 import FilterByYear from "./student/NewChart1210N/FilterByYear";
 import { Button } from "@mui/material";
 import FilterBySubject from "./student/NewChart1210N/FilterBySubject";
+import { AppContext } from "../App";
 const StatsSubject = (props) => {
+  const { data1, data2 } = useContext(AppContext);
+
   const svgRef = useRef();
   const [open, setOpen] = useState(false);
   const [open1, setOpen1] = useState(false);
@@ -24,7 +27,7 @@ const StatsSubject = (props) => {
     { name: "Year 4", score1: 100, score2: 97, score3: 95, score4: 94 },
   ];
   const dashedLineData = [
-    { name: "Year 1", score1: 20, x: 0  },
+    { name: "Year 1", score1: 20, x: 0 },
     { name: "Year 2", score1: 40 },
     { name: "Year 3", score1: 70 },
     { name: "Year 4", score1: 100, x: 880 },
@@ -41,6 +44,96 @@ const StatsSubject = (props) => {
   const handleClose1 = () => {
     setOpen1(false);
   };
+
+  useEffect(() => {
+    // Tạo đối tượng để lưu trữ thông tin môn học, năm học và điểm
+    const resultArray = [];
+
+    // Duyệt qua mảng scoresData
+    data2.forEach((scoreItem) => {
+      // Tìm môn học trong mảng coursesData
+      const courseInfo = data1.find((courseItem) =>
+        scoreItem.course.includes(courseItem["course_code"])
+      );
+
+      // Nếu tìm thấy thông tin môn học, thêm thông tin vào resultArray
+      if (courseInfo) {
+        const resultItem = {
+          course: courseInfo["course_code"],
+          year: courseInfo.year,
+          enrollment: scoreItem.enrollment,
+          score: scoreItem.score,
+        };
+
+        resultArray.push(resultItem);
+      }
+    });
+    // Tạo đối tượng Map để lưu trữ thông tin môn học, năm học, điểm và số lượng đếm
+    const resultMap = new Map();
+
+    // Duyệt qua mảng inputArray
+    resultArray.forEach((item) => {
+      const key = `${item.enrollment}_${item.year}`;
+
+      // Nếu key chưa tồn tại trong Map, thêm key và khởi tạo giá trị
+      if (!resultMap.has(key)) {
+        resultMap.set(key, { totalScore: 0, count: 0 });
+      }
+
+      // Cập nhật tổng điểm và số lượng
+      resultMap.get(key).totalScore += item.score;
+      resultMap.get(key).count += 1;
+    });
+
+    // Tạo mảng kết quả từ Map
+    const finalArray = Array.from(resultMap, ([key, value]) => {
+      const [enrollment, year, course] = key.split("_");
+      const averageScore = value.count > 0 ? value.totalScore / value.count : 0;
+
+      return {
+        // course: item.course,
+        year: parseInt(year),
+        enrollment: parseInt(enrollment),
+        score: averageScore,
+        course
+      };
+    });
+
+    console.log("final array", finalArray.filter(item => item.enrollment > 17));
+    const fa = finalArray.filter(item => item.enrollment > 17)
+
+    // Initialize result object
+    const result = [];
+
+    // Group by year
+    const groupedByYear = fa.reduce((acc, entry) => {
+      if (!acc[entry.year]) {
+        acc[entry.year] = [];
+      }
+      acc[entry.year].push(entry);
+      return acc;
+    }, {});
+
+    // Process each group
+    for (const year in groupedByYear) {
+      const group = groupedByYear[year];
+      const scores = {};
+
+      // Sort the group by enrollment
+      group.sort((a, b) => a.enrollment - b.enrollment);
+
+      // Populate scores
+      group.forEach((entry, index) => {
+        scores[`score${index + 1}`] = Math.floor(entry.score);
+      });
+
+      // Add to result
+      result.push({ name: `Year ${year}`, ...scores });
+    }
+    console.log("result", result);
+    setData(result)
+  }, [data1, data2])
+
   useEffect(() => {
     // 1. Set canvas margins
     const margin = {
@@ -262,11 +355,11 @@ const StatsSubject = (props) => {
       .line()
       .x((d) => {
         console.log(xScale(d.name) + barWidth / 2)
-        if(xScale(d.name) + barWidth / 2== 682) {
+        if (xScale(d.name) + barWidth / 2 == 682) {
           return 812
         }
         return xScale(d.name) + barWidth / 2
-      } )
+      })
       .y((d) => yScale(d.score1));
 
     const dashedLine = chart

@@ -82,7 +82,7 @@ const ChartGrid = ({ data }) => {
                 marginBottom: 12,
               }}
             >
-              <div style={{ flex: 1 }}>
+              {/* <div style={{ flex: 1 }}>
                 <div style={{ width: "100%" }}>
                   <SelectYear />
                 </div>
@@ -96,25 +96,25 @@ const ChartGrid = ({ data }) => {
                 <div style={{ width: "100%" }}>
                   <CountStudent />
                 </div>
-              </div>
-            </div>
-            <div className="chart-grid">
-              {/* <div className="chart-item">
-                <BarChart data={data} />
               </div> */}
+            </div>
+            {/* <div className="chart-grid">
+              <div className="chart-item">
+                <BarChart data={data} />
+              </div>
               <div className="chart-item">
                 <LineChart data={data} />
               </div>
-              {/* <div className="chart-item">
+              <div className="chart-item">
                 <PieChart data={data} />
-              </div> */}
+              </div>
               <div className="chart-item">
                 <DonutChart data={data} />
               </div>
-            </div>
-            <div style={{ width: "100%", maxWidth: "calc(100%)" }}>
+            </div> */}
+            {/* <div style={{ width: "100%", maxWidth: "calc(100%)" }}>
               <Chart3 />
-            </div>
+            </div> */}
             <div style={{width: "100%", maxWidth: "100%"}}>
               <EnrollmentChart />
             </div>
@@ -151,7 +151,7 @@ const ChartGrid = ({ data }) => {
             </div>
           </div>
           {/*  */}
-          <div style={{ width: 250 }}>
+          {/* <div style={{ width: 250 }}>
             <div
               style={{
                 width: "100%",
@@ -232,7 +232,7 @@ const ChartGrid = ({ data }) => {
                 color={"#E63946"}
               />
             </div>
-          </div>
+          </div> */}
         </div>
         {/* <div
           style={{
