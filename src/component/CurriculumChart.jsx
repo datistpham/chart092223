@@ -4,7 +4,7 @@ import FilterByYear from "./student/NewChart1210N/FilterByYear";
 import { Button } from "@mui/material";
 import FilterBySubject from "./student/NewChart1210N/FilterBySubject";
 import { AppContext } from "../App";
-const StatsSubject = (props) => {
+const CurriculumChart = (props) => {
   const { data1, data2 } = useContext(AppContext);
 
   const svgRef = useRef();
@@ -82,24 +82,26 @@ const StatsSubject = (props) => {
 
       // Cập nhật tổng điểm và số lượng
       resultMap.get(key).totalScore += item.score;
-      resultMap.get(key).count += 1;
+      if(item.score >= 50) {
+        resultMap.get(key).count += 1;
+      }
     });
-
+    console.log("result curriculum ", resultMap)
     // Tạo mảng kết quả từ Map
     const finalArray = Array.from(resultMap, ([key, value]) => {
-      const [enrollment, year, course] = key.split("_");
-      const averageScore = value.count > 0 ? value.totalScore / value.count : 0;
+      const [enrollment, year] = key.split("_");
+      const passScore = value.count;
 
       return {
         // course: item.course,
         year: parseInt(year),
         enrollment: parseInt(enrollment),
-        score: averageScore,
-        course
+        score: passScore,
+        count: value.count,
       };
     });
 
-    console.log("final array", finalArray.filter(item => item.enrollment > 17));
+    console.log("final curriculum array", finalArray.filter(item => item.enrollment > 17));
     const fa = finalArray.filter(item => item.enrollment > 17)
 
     // Initialize result object
@@ -124,20 +126,20 @@ const StatsSubject = (props) => {
 
       // Populate scores
       group.forEach((entry, index) => {
-        scores[`score${index + 1}`] = Math.floor(entry.score);
+        scores[`score${index + 1}`] = Math.floor(entry.count);
       });
 
       // Add to result
       result.push({ name: `Year ${year}`, ...scores });
     }
-    console.log("result", result);
-    setData(result)
+    console.log("result finalllllll", result);
+    setData(result?.reverse())
   }, [data1, data2])
 
   useEffect(() => {
     // 1. Set canvas margins
     const margin = {
-      top: 50,
+      top: 300,
       right: 50,
       bottom: 80,
       left: 70,
@@ -300,7 +302,7 @@ const StatsSubject = (props) => {
     // Add chart title
     chart
       .append("text")
-      .text("Compare percent complete subject between year school")
+      .text("Curriculum")
       .style("font-size", "20px")
       .attr(
         "transform",
@@ -310,7 +312,7 @@ const StatsSubject = (props) => {
     // Add chart x axis label
     chart
       .append("text")
-      .text("Compare percent complete subject between year school")
+      .text("Curriculum")
       .attr("text-anchor", "middle")
       .attr(
         "transform",
@@ -320,7 +322,7 @@ const StatsSubject = (props) => {
     // Add chart y axis label
     chart
       .append("text")
-      .text("Points scored")
+      .text("Percents completed")
       .attr("transform", "rotate(-90)")
       .attr("text-anchor", "middle")
       .attr("x", 0 - height / 2)
@@ -473,4 +475,4 @@ const StatsSubject = (props) => {
   );
 };
 
-export default StatsSubject;
+export default CurriculumChart;

@@ -39,6 +39,7 @@ const ExcelToJsonConverterDialog = () => {
 
         const jsonString = JSON.stringify(jsonData, null, 2);
 
+        // Lưu file với tên là 'converted_data.json' trong thư mục của ứng dụng
         const blob = new Blob([jsonString], { type: 'application/json' });
         saveAs(blob, 'converted_data.json');
 

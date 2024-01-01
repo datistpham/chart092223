@@ -9,19 +9,77 @@ const EnrollmentChart = () => {
   const { data2 } = useContext(AppContext);
   const chartRef = useRef(null);
 
+  // Tạo một Map để lưu trữ các giá trị enrollment và đếm số lượng
+  let enrollmentCount = new Map();
+  const colorArray = [
+    "#1f77b4",
+    "#ff7f0e",
+    "#2ca02c",
+    "#d62728",
+    "#9467bd",
+    "#8c564b",
+    "#e377c2",
+    "#7f7f7f",
+    "#bcbd22",
+    "#17becf",
+    "#aec7e8",
+    "#ffbb78",
+    "#98df8a",
+    "#ff9896",
+  ];
+  const colorScale = d3.scaleLinear().range(colorArray);
+
+  // Bạn có thể sử dụng colorScale để ánh xạ màu cho từng cột trong biểu đồ
+
+  const tooltipHtml = (x, y, z) => {
+    console.log(z);
+    return (
+      <div>
+        <strong>Enrollment:</strong> {z}
+      </div>
+    );
+  };
+
+  // Lọc các phần tử có enrollment khác nhau và thêm vào Map
+  data2.forEach((item) => {
+    const { enrollment } = item;
+    if (enrollmentCount.has(enrollment)) {
+      enrollmentCount.set(enrollment, {
+        ...item,
+        count: enrollmentCount.get(enrollment).count + 1,
+      });
+    } else {
+      enrollmentCount.set(enrollment, { ...item, count: 1 });
+    }
+  });
+
+  // Lấy các giá trị từ Map để tạo mảng mới
+  let uniqueArrayWithCount = Array.from(enrollmentCount.values());
+  uniqueArrayWithCount.sort((a, b) => a.enrollment - b.enrollment);
+  console.log("uniqueArrayWithCount", uniqueArrayWithCount);
+
+  const labels = uniqueArrayWithCount?.map((item) => [`K${item.enrollment}`]);
+  const colors = [
+    "#FF5733",
+    "#33FF57",
+    "#5733FF",
+    "#FF33C5",
+    "#33B0FF",
+    "#FFC533",
+    "#3373FF",
+    "#FF3368",
+    "#33FFAB",
+    "#A833FF",
+    "#FF3333",
+    "#33FFD1",
+    "#FF8533",
+    "#333BFF",
+    "#FF33A6",
+    "#33FF33",
+  ];
+  const data = uniqueArrayWithCount?.map((item) => [item.score]);
   useEffect(() => {
     // data and labels to plot
-    const data = [30, 10, 50, 20, 35, 45, 25];
-    const labels = ["1992", "1993", "1994", "1995", "1996", "1997", "1998"];
-    const colors = [
-      "#2e89ff",
-      "#f00",
-      "#2e89ff",
-      "#2e89ff",
-      "#2e89ff",
-      "#2e89ff",
-      "#2e89ff",
-    ];
 
     // maximum width of single bar so bar doesn't look like a box
     const max_bar_width = 100;
@@ -33,7 +91,7 @@ const EnrollmentChart = () => {
     // top and bottom margins
     const top_offset = 50;
     const bottom_offset = 50;
-    
+
     // append svg
     if (chartRef.current) {
       const svg = d3
@@ -103,7 +161,7 @@ const EnrollmentChart = () => {
         .attr("width", bar_width - spacing)
         .on("mouseover", function (d, i) {
           console.log("d", d, "i", i);
-          tooltip.html(`Data: ${i}`).style("visibility", "visible");
+          tooltip.html(`Student: ${i}`).style("visibility", "visible");
         })
         .on("mousemove", function (event) {
           tooltip
@@ -155,62 +213,12 @@ const EnrollmentChart = () => {
         .attr("y", (d) => svg_height - bottom_offset - scale(d))
         .attr("height", (d) => scale(d));
     }
-  }, []);
-  // Tạo một Map để lưu trữ các giá trị enrollment và đếm số lượng
-  let enrollmentCount = new Map();
-  const colorArray = [
-    "#1f77b4",
-    "#ff7f0e",
-    "#2ca02c",
-    "#d62728",
-    "#9467bd",
-    "#8c564b",
-    "#e377c2",
-    "#7f7f7f",
-    "#bcbd22",
-    "#17becf",
-    "#aec7e8",
-    "#ffbb78",
-    "#98df8a",
-    "#ff9896",
-    "#c5b0d5",
-    "#c49c94",
-  ];
-  const colorScale = d3.scaleLinear().range(colorArray);
-
-  // Bạn có thể sử dụng colorScale để ánh xạ màu cho từng cột trong biểu đồ
-
-  const tooltipHtml = (x, y, z) => {
-    console.log(z);
-    return (
-      <div>
-        <strong>Enrollment:</strong> {z}
-      </div>
-    );
-  };
-
-  // Lọc các phần tử có enrollment khác nhau và thêm vào Map
-  data2.forEach((item) => {
-    const { enrollment } = item;
-    if (enrollmentCount.has(enrollment)) {
-      enrollmentCount.set(enrollment, {
-        ...item,
-        count: enrollmentCount.get(enrollment).count + 1,
-      });
-    } else {
-      enrollmentCount.set(enrollment, { ...item, count: 1 });
-    }
-  });
-
-  // Lấy các giá trị từ Map để tạo mảng mới
-  let uniqueArrayWithCount = Array.from(enrollmentCount.values());
-  uniqueArrayWithCount.sort((a, b) => a.enrollment - b.enrollment);
-  console.log("uniqueArrayWithCount", uniqueArrayWithCount);
-
+  }, [colors, labels, data]);
+  
   if (uniqueArrayWithCount) {
     return (
       <>
-        <BarChart
+        {/* <BarChart
           data={[
             {
               label: "Enrollment",
@@ -243,10 +251,24 @@ const EnrollmentChart = () => {
             "#c5b0d5",
             "#c49c94",
           ])}
-        />
-        <>
-          <div ref={chartRef}></div>
-        </>
+        /> */}
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          <div className="aksljkdjfksaea" style={{ width: 600 }} ref={chartRef}></div>
+          <div>
+            {
+              colors?.map((item, key)=> <div style={{textAlign: "left", display: "flex", alignItems: "center", gap: 10}} key={key}>
+                <div style={{width: 40, height: 20, backgroundColor: item}}></div>
+                {labels[key]}
+              </div>)
+            }
+          </div>
+        </div> 
       </>
     );
   }

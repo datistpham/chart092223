@@ -9,10 +9,10 @@ const Header = () => {
       <h1>Chart web</h1>
       <nav className="navbar">
         <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">Chart 1</a></li>
-          <li><a href="#">Chart 2</a></li>
-          <li><a href="#">Contact</a></li>
+          <li className="c-flex-center"><a href="#">Home</a></li>
+          <li className="c-flex-center"><a href="#">Chart 1</a></li>
+          <li className="c-flex-center"><a href="#">Chart 2</a></li>
+          <li className="c-flex-center"><a href="#">Contact</a></li>
           <ExcelToJsonConverterDialog />
         </ul>
       </nav>

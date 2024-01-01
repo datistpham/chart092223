@@ -20,6 +20,7 @@ import StatsSubject2 from "./StatsSubject2";
 import StatsSubject3 from "./StatsSubject3";
 import TableHoverCharts from "./components/TableHoverChart";
 import EnrollmentChart from "./EnrollmentChart";
+import CurriculumChart from "./CurriculumChart";
 // import NewChart1210N from "./student/NewChart1210N";
 
 const ChartGrid = ({ data }) => {
@@ -133,6 +134,7 @@ const ChartGrid = ({ data }) => {
                   ]}
                 />
               }
+              <CurriculumChart />
               {/*  */}
               {
                 toggle === true &&
@@ -283,7 +285,7 @@ const ChartGrid = ({ data }) => {
             marginBottom: 12,
           }}
         >
-          <h1 style={{ marginBottom: 12 }}>GPA Histogram</h1>
+          <h1 style={{ marginBottom: 12 }}>GPA Barchart</h1>
           <GpaHistogram data={gpaData} />
 
         </div>
