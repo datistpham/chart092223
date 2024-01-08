@@ -130,7 +130,7 @@ const CurriculumChart = (props) => {
       });
 
       // Add to result
-      result.push({ name: `Year ${year}`, ...scores });
+      result.push({ name: `Year ${5 - year}`, ...scores });
     }
     console.log("result finalllllll", result);
     setData(result?.reverse())

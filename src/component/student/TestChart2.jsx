@@ -127,38 +127,38 @@ const TestChart2 = (props) => {
       label: "Year 1",
       color: "#ff0",
       values: [
-        { x: "Year 1", y: 58, subject: "Art" },
-        { x: "Year 2", y: 49, subject: "Science" },
-        { x: "Year 3", y: 64, subject: "Bio" },
-        { x: "Year 4", y: 57, subject: "Math" },
+        { x: "Year 1", y: 58, subject: "Software Engineering" },
+        { x: "Year 2", y: 49, subject: "Object Oriented Programming" },
+        { x: "Year 3", y: 64, subject: "Operating Systems" },
+        { x: "Year 4", y: 57, subject: "Principles of Programming Languages" },
       ],
     },
     {
       label: "Year 2",
       values: [
-        { x: "Year 1", y: 68, subject: "Art" },
-        { x: "Year 2", y: 60, subject: "Science" },
-        { x: "Year 3", y: 57, subject: "Bio" },
-        { x: "Year 4", y: 42, subject: "Math" },
+        { x: "Year 1", y: 68, subject: "Software Engineering" },
+        { x: "Year 2", y: 60, subject: "Object Oriented Programming" },
+        { x: "Year 3", y: 57, subject: "Operating Systems" },
+        { x: "Year 4", y: 42, subject: "Principles of Programming Languages" },
       ],
     },
 
     {
       label: "Year 3",
       values: [
-        { x: "Year 1", y: 62, subject: "Art" },
-        { x: "Year 2", y: 57, subject: "Science" },
-        { x: "Year 3", y: 70, subject: "Bio" },
-        { x: "Year 4", y: 52, subject: "Math" },
+        { x: "Year 1", y: 62, subject: "Software Engineering" },
+        { x: "Year 2", y: 57, subject: "Object Oriented Programming" },
+        { x: "Year 3", y: 70, subject: "Operating Systems" },
+        { x: "Year 4", y: 52, subject: "Principles of Programming Languages" },
       ],
     },
     {
       label: "Year 4",
       values: [
-        { x: "Year 1", y: 72, subject: "Art" },
-        { x: "Year 2", y: 67, subject: "Science" },
-        { x: "Year 3", y: 60, subject: "Bio" },
-        { x: "Year 4", y: 55, subject: "Math" },
+        { x: "Year 1", y: 72, subject: "Software Engineering" },
+        { x: "Year 2", y: 67, subject: "Object Oriented Programming" },
+        { x: "Year 3", y: 60, subject: "Operating Systems" },
+        { x: "Year 4", y: 55, subject: "Principles of Programming Languages" },
       ],
     },
   ];
@@ -169,37 +169,37 @@ const TestChart2 = (props) => {
       label: "Year 1",
       color: "#ff0",
       values: [
-        { x: "Year 1", y: 58, subject: "Art" },
-        { x: "Year 2", y: 49, subject: "Science" },
-        { x: "Year 3", y: 64, subject: "Bio" },
-        { x: "Year 4", y: 57, subject: "Math" },
+        { x: "Year 1", y: 58, subject: "Software Engineering" },
+        { x: "Year 2", y: 49, subject: "Object Oriented Programming" },
+        { x: "Year 3", y: 64, subject: "Operating Systems" },
+        { x: "Year 4", y: 57, subject: "Principles of Programming Languages" },
       ],
     },
     {
       label: "Year 2",
       values: [
-        { x: "Year 1", y: 68, subject: "Art" },
-        { x: "Year 2", y: 60, subject: "Science" },
-        { x: "Year 3", y: 57, subject: "Bio" },
-        { x: "Year 4", y: 42, subject: "Math" },
+        { x: "Year 1", y: 68, subject: "Software Engineering" },
+        { x: "Year 2", y: 60, subject: "Object Oriented Programming" },
+        { x: "Year 3", y: 57, subject: "Operating Systems" },
+        { x: "Year 4", y: 42, subject: "Principles of Programming Languages" },
       ],
     },
     {
       label: "Year 3",
       values: [
-        { x: "Year 1", y: 62, subject: "Art" },
-        { x: "Year 2", y: 57, subject: "Art" },
-        { x: "Year 3", y: 70, subject: "Bio" },
-        { x: "Year 4", y: 52, subject: "Math" },
+        { x: "Year 1", y: 62, subject: "Software Engineering" },
+        { x: "Year 2", y: 57, subject: "Software Engineering" },
+        { x: "Year 3", y: 70, subject: "Operating Systems" },
+        { x: "Year 4", y: 52, subject: "Principles of Programming Languages" },
       ],
     },
     {
       label: "Year 4",
       values: [
-        { x: "Year 1", y: 72, subject: "Art" },
-        { x: "Year 2", y: 67, subject: "Science" },
-        { x: "Year 3", y: 60, subject: "Bio" },
-        { x: "Year 4", y: 55, subject: "Math" },
+        { x: "Year 1", y: 72, subject: "Software Engineering" },
+        { x: "Year 2", y: 67, subject: "Object Oriented Programming" },
+        { x: "Year 3", y: 60, subject: "Operating Systems" },
+        { x: "Year 4", y: 55, subject: "Principles of Programming Languages" },
       ],
     },
   ]);
@@ -267,7 +267,7 @@ const TestChart2 = (props) => {
           <div
             style={{ width: 100, height: 30, backgroundColor: "#FF5733" }}
           ></div>
-          <div>Art</div>
+          <div>Software Engineering</div>
         </div>
         <div
           style={{
@@ -280,7 +280,7 @@ const TestChart2 = (props) => {
           <div
             style={{ width: 100, height: 30, backgroundColor: "#3498db" }}
           ></div>
-          <div>Science</div>
+          <div>Object Oriented Programming</div>
         </div>
         <div
           style={{
@@ -293,7 +293,7 @@ const TestChart2 = (props) => {
           <div
             style={{ width: 100, height: 30, backgroundColor: "#2ecc71" }}
           ></div>
-          <div>Bio</div>
+          <div>Operating Systems</div>
         </div>
         <div
           style={{
@@ -306,7 +306,7 @@ const TestChart2 = (props) => {
           <div
             style={{ width: 100, height: 30, backgroundColor: "#f39c12" }}
           ></div>
-          <div>Math</div>
+          <div>Principles of Programming Languages</div>
         </div>
         {/*  */}
         {/* <div
@@ -388,7 +388,7 @@ const TestChart2 = (props) => {
             </Button>
           </div>
           {/*  */}
-          <div
+          {/* <div
             style={{
               marginBottom: 12,
               display: "flex",
@@ -403,7 +403,7 @@ const TestChart2 = (props) => {
             >
               Toggle chart
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
       <FilterPopup

@@ -5,10 +5,9 @@ const Sidebar = () => {
   return (
     <div className="sidebar">
       <ul>
+        <li><a href="#">Admin</a></li>
         <li><a href="#">Home</a></li>
-        <li><a href="#">Chart 1</a></li>
-        <li><a href="#">Chart 2</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#">Dashboard</a></li>
       </ul>
     </div>
   );

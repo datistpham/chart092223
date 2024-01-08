@@ -300,7 +300,7 @@ const StatsSubject = (props) => {
     // Add chart title
     chart
       .append("text")
-      .text("Compare percent complete subject between year school")
+      .text("Compare avarage score complete subject between year school")
       .style("font-size", "20px")
       .attr(
         "transform",
@@ -310,7 +310,7 @@ const StatsSubject = (props) => {
     // Add chart x axis label
     chart
       .append("text")
-      .text("Compare percent complete subject between year school")
+      .text("Compare avarage scrore complete subject between year school")
       .attr("text-anchor", "middle")
       .attr(
         "transform",
