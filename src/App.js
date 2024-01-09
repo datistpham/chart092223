@@ -8,6 +8,7 @@ import { createContext, useState } from "react";
 import Home from "./pages/Home";
 import d1 from "./d1.json"
 import d2 from "./d2.json"
+import Dashboard from "./pages/Dashboard";
 
 export const AppContext = createContext()
 function App() {
@@ -17,12 +18,19 @@ function App() {
   const [data2, setData2] = useState(d2)
 
   return (
-    <AppContext.Provider value={{data1, data2}}>
+    <AppContext.Provider value={{ data1, data2 }}>
       <div className="App">
         <CssBaseline />
         <Routes>
           <Route path="/login" element={<Login setAuth={setAuth} />} />
           <Route path="/signup" element={<Signup setAuth={setAuth} />} />
+          <Route path="/dashboard" element={
+            auth ? (
+              <Dashboard setAuth={setAuth} />
+            ) : (
+              <Navigate to="/login" state={{ from: location }} replace />
+            )
+          } />
           <Route
             path="/"
             element={

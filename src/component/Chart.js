@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 // import BarChart from "./BarChart";
 import LineChart from "./LineChart";
 // import PieChart from "./PieChart";
@@ -21,10 +21,31 @@ import StatsSubject3 from "./StatsSubject3";
 import TableHoverCharts from "./components/TableHoverChart";
 import EnrollmentChart from "./EnrollmentChart";
 import CurriculumChart from "./CurriculumChart";
+import { AppContext } from "../App";
+import { PieChart } from "react-d3-components";
+import * as d3 from "d3"
+import _ from "lodash";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 // import NewChart1210N from "./student/NewChart1210N";
 
 const ChartGrid = ({ data }) => {
+
+  const [major, setMajor] = useState("CS")
+  const [year, setYear] = useState(2018)
+  const [sem, setSem] = useState(1)
+  const handleChange = (e) => {
+    setMajor(e.target.value)
+  }
+  const handleChangeYear = (e) => {
+    setYear(e.target.value)
+  }
+  const handleChangeSem = (e) => {
+    setSem(e.target.value)
+  }
+
   // const grade1Percentage = 25;
+  const [totalEnrollment, setTotalEnrollment] = useState([])
+  const { data2 } = useContext(AppContext)
   const [toggle, setToggle] = useState(false)
   const handleToggle = () => {
     setToggle(!toggle)
@@ -64,6 +85,58 @@ const ChartGrid = ({ data }) => {
     // Thêm các dữ liệu khác nếu cần thiết
   ];
 
+  useEffect(() => {
+    function mergeEnrollments(data) {
+      const enrollmentCounts = {};
+
+      data.forEach((item) => {
+        const { id, enrollment } = item;
+        const key = `${enrollment}`;
+
+        if (!enrollmentCounts[key]) {
+          enrollmentCounts[key] = { enrollment, count: 1 };
+        } else {
+          enrollmentCounts[key].count++;
+        }
+      });
+
+      const result = Object.values(enrollmentCounts).map(({ enrollment, count }) => ({
+        enrollment,
+        count,
+      }));
+
+      return result;
+    }
+
+    const datax = data2.filter(item => item.id.includes('IT' + major.toUpperCase())); // Thay thế bằng mảng dữ liệu thực tế của bạn
+    const result = mergeEnrollments(datax);
+
+    setTotalEnrollment(result)
+    console.log("number count", result);
+  }, [data2, major])
+
+  const tooltipHtml = (x, y, z) => {
+    console.log(x, y);
+    return (
+      <div>
+        <strong>{x}</strong>
+        &nbsp;
+        &nbsp;
+        &nbsp;
+        <strong>Count:</strong> {y}
+      </div>
+    );
+  };
+
+  const tooltipHtml2 = (x, y, z) => {
+    console.log(x, y);
+    return (
+      <div>
+        <strong>Count:</strong> {y} ({Math.ceil(y / data2.filter(item => item.id.includes('IT' + major.toUpperCase()))?.length * 100)} %)
+      </div>
+    );
+  };
+
   return (
     <div className="chart-grid-container">
       <div className="placeholder-sidebar"></div>
@@ -73,17 +146,21 @@ const ChartGrid = ({ data }) => {
           style={{ width: "100%", display: "flex" }}
         >
           <div style={{ flex: 1 }}>
-            <div
-              style={{
-                width: "100%",
-                display: "flex",
-                gap: 20,
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: 12,
-              }}
-            >
-              {/* <div style={{ flex: 1 }}>
+            <div style={{ width: "100%", backgroundImage: `url("https://res.cloudinary.com/cockbook/image/upload/v1704760435/single/logo-1_r7garg.jpg")`, backgroundSize: "400px 200px", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
+              <div
+                style={{
+                  width: "100%",
+                  display: "flex",
+                  gap: 20,
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: 12,
+                }}
+              >
+                <div style={{ width: "100%" }}>
+                  <div style={{ textAlign: "center", margin: 20, fontSize: 24, padding: "20px 60px", border: "1px solid #e7e7e7" }}>{major}</div>
+                </div>
+                {/* <div style={{ flex: 1 }}>
                 <div style={{ width: "100%" }}>
                   <SelectYear />
                 </div>
@@ -98,8 +175,8 @@ const ChartGrid = ({ data }) => {
                   <CountStudent />
                 </div>
               </div> */}
-            </div>
-            {/* <div className="chart-grid">
+              </div>
+              {/* <div className="chart-grid">
               <div className="chart-item">
                 <BarChart data={data} />
               </div>
@@ -113,43 +190,150 @@ const ChartGrid = ({ data }) => {
                 <DonutChart data={data} />
               </div>
             </div> */}
-            {/* <div style={{ width: "100%", maxWidth: "calc(100%)" }}>
+              {/* <div style={{ width: "100%", maxWidth: "calc(100%)" }}>
               <Chart3 />
             </div> */}
-            <div style={{width: "100%", maxWidth: "100%"}}>
-              <EnrollmentChart />
-            </div>
-            <div style={{ width: "100%", maxWidth: "calc(100%)" }}>
-              {
-                toggle === false &&
-                <StatsSubject
-                  toggle={toggle}
-                  handleToggle={handleToggle}
-                  data={[
-                    { group: "Math", Nitrogen: 50, normal: 20, stress: 10 },
-                    { group: "Physics", Nitrogen: 45, normal: 15, stress: 5 },
-                    { group: "Science", Nitrogen: 55, normal: 10, stress: 8 },
-                    { group: "History", Nitrogen: 40, normal: 18, stress: 12 },
-                    { group: "English", Nitrogen: 60, normal: 12, stress: 6 },
-                  ]}
-                />
-              }
-              <CurriculumChart />
-              {/*  */}
-              {
-                toggle === true &&
-                <StatsSubject2
-                  toggle={toggle}
-                  handleToggle={handleToggle}
-                  data={[
-                    { group: "Math", Nitrogen: 50, normal: 20, stress: 10 },
-                    { group: "Physics", Nitrogen: 45, normal: 15, stress: 5 },
-                    { group: "Science", Nitrogen: 55, normal: 10, stress: 8 },
-                    { group: "History", Nitrogen: 40, normal: 18, stress: 12 },
-                    { group: "English", Nitrogen: 60, normal: 12, stress: 6 },
-                  ]}
-                />
-              }
+              <div style={{ width: '100%', display: "flex", gap: 30 }}>
+                <div style={{ flex: 1 }}>
+                  <div>Number of students: {_.sumBy(totalEnrollment, function (e) { return parseInt(e.count) })}</div>
+                  <PieChart
+                    data={{
+                      label: "Total enrollment",
+                      values: totalEnrollment?.filter(item => parseInt(item.enrollment) > 10)?.map(item => ({ x: `K${item.enrollment}`, y: item.count }))
+                    }}
+                    width={600}
+                    height={400}
+                    margin={{ top: 10, bottom: 10, left: 100, right: 100 }}
+                    sort={d3.ascending}
+                    tooltipHtml={tooltipHtml}
+                  />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ textAlign: "left", margin: "12px 0" }}>Select major</div>
+                  <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">Major</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={major}
+                        label="Major"
+                        onChange={handleChange}
+                      >
+                        <MenuItem value={"CE"}>CE</MenuItem>
+                        <MenuItem value={"CS"}>CS</MenuItem>
+                        <MenuItem value={"DS"}>DS</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                  <div style={{ textAlign: "left", margin: "12px 0" }}>Select year</div>
+                  <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">Year</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={year}
+                        label="Year"
+                        onChange={handleChangeYear}
+                      >
+                        <MenuItem value={2018}>2018</MenuItem>
+                        <MenuItem value={2019}>2019</MenuItem>
+                        <MenuItem value={2020}>2020</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                  <div style={{ textAlign: "left", margin: "12px 0" }}>Select semester</div>
+                  <Box sx={{ minWidth: 120 }}>
+                    <FormControl fullWidth>
+                      <InputLabel id="demo-simple-select-label">Sem</InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={sem}
+                        label="Sem"
+                        onChange={handleChangeSem}
+                      >
+                        <MenuItem value={"1"}>1</MenuItem>
+                        <MenuItem value={"2"}>2</MenuItem>
+                        <MenuItem value={"3"}>3</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                </div>
+              </div>
+              <div style={{ width: "100%", display: "flex" }}>
+                <div style={{ flex: 1 }}>
+                  <div style={{ fontSize: 20, fontWeight: "600", margin: "20px 0" }}>Average GPA of {major} field</div>
+                  <PieChart
+                    data={{
+                      label: "Pass & Failed",
+                      values: [{ x: "Pass", y: data2.filter(item => item.id.includes('IT' + major.toUpperCase())).filter(item => item.score >= 50)?.length }, { x: "Failed", y: data2.filter(item => item.id.includes('IT' + major.toUpperCase())).filter(item => item.score < 50)?.length }]
+                    }}
+                    width={600}
+                    height={400}
+                    margin={{ top: 10, bottom: 10, left: 100, right: 100 }}
+                    sort={d3.ascending}
+                    tooltipHtml={tooltipHtml2}
+                  />
+                  {console.log("xxx", data2.filter(item => item.id.includes('IT' + major.toUpperCase())).filter(item => item.score < 50)?.length)}
+                </div>
+                <div style={{ flex: 1 }}>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ textAlign: "left", margin: "12px 0" }}>Select major</div>
+                    <Box sx={{ minWidth: 120 }}>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Major</InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={major}
+                          label="Major"
+                          onChange={handleChange}
+                        >
+                          <MenuItem value={"CE"}>CE</MenuItem>
+                          <MenuItem value={"CS"}>CS</MenuItem>
+                          <MenuItem value={"DS"}>DS</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                    <div style={{ textAlign: "left", margin: "12px 0" }}>Select year</div>
+                    <Box sx={{ minWidth: 120 }}>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Year</InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={year}
+                          label="Year"
+                          onChange={handleChangeYear}
+                        >
+                          <MenuItem value={2018}>2018</MenuItem>
+                          <MenuItem value={2019}>2019</MenuItem>
+                          <MenuItem value={2020}>2020</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                    <div style={{ textAlign: "left", margin: "12px 0" }}>Select semester</div>
+                    <Box sx={{ minWidth: 120 }}>
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">Sem</InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          value={sem}
+                          label="Sem"
+                          onChange={handleChangeSem}
+                        >
+                          <MenuItem value={"1"}>1</MenuItem>
+                          <MenuItem value={"2"}>2</MenuItem>
+                          <MenuItem value={"3"}>3</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </Box>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           {/*  */}
@@ -256,63 +440,7 @@ const ChartGrid = ({ data }) => {
           <NewChart1210N />
           
         </div> */}
-        {/*  */}
-        <div
-          style={{
-            width: "100%",
-            maxWidth: "calc(100%)",
-            marginBottom: 12,
-          }}
-        >
-          <TestChart />
-
-        </div>
-        {/*  */}
-        <div
-          style={{
-            width: "100%",
-            maxWidth: "calc(100%)",
-            marginBottom: 12,
-          }}
-        >
-          <TestChart2 />
-        </div>
-        {/*  */}
-        <div
-          style={{
-            width: "100%",
-            maxWidth: "calc(100%)",
-            marginBottom: 12,
-          }}
-        >
-          <h1 style={{ marginBottom: 12 }}>GPA Barchart</h1>
-          <GpaHistogram data={gpaData} />
-
-        </div>
-        <div
-          style={{
-            width: "100%",
-            maxWidth: "calc(100%)",
-            marginBottom: 12,
-          }}
-        >
-          <h1 style={{ marginBottom: 12 }}>G-am</h1>
-          {/* <StatsSubject2 data={gpaData} handleToggle={handleToggle} /> */}
-          <StatsSubject3 setRow={setRow} rows={rows} rows2={rows2} rows1={rows1} handleToggle={handleToggle} />
-        </div>
-        {/*  */}
-        <div
-          style={{
-            width: "100%",
-            maxWidth: "calc(100%)",
-            marginBottom: 12,
-          }}
-        >
-          {/* <ListStudent /> */}
-          <TableHoverCharts rows={row} />
-        </div>
       </div>
-
     </div>
   );
 };

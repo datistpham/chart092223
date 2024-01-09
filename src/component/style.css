@@ -56,7 +56,7 @@
   pointer-events: none;
 }
 
-.aksljkdjfksaea svg:last-child {
+.aksljkdjfksaea svg:not(:first-child) {
   opacity: 0 !important;
   height: 0 !important  ;
 }

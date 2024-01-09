@@ -1,18 +1,21 @@
 import React from 'react';
 import './Header.css'; // Import file CSS
 import ExcelToJsonConverterDialog from './PopupConvert';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <>
       <header className="header">
-      <h1>Chart web</h1>
+      <h1>
+        <img style={{width: 100, height: 50}} alt="" src="https://res.cloudinary.com/cockbook/image/upload/v1704760435/single/logo-1_r7garg.jpg" />
+      </h1>
       <nav className="navbar">
         <ul>
-          <li className="c-flex-center"><a href="#">Home</a></li>
-          <li className="c-flex-center"><a href="#">Chart 1</a></li>
-          <li className="c-flex-center"><a href="#">Chart 2</a></li>
-          <li className="c-flex-center"><a href="#">Contact</a></li>
+          <li className="c-flex-center" style={{justifyContent: "flex-start"}}><Link to="#">Home</Link></li>
+          <li className="c-flex-center" style={{justifyContent: "flex-start"}}><Link to="#">Chart 1</Link></li>
+          <li className="c-flex-center" style={{justifyContent: "flex-start"}}><Link to="#">Chart 2</Link></li>
+          <li className="c-flex-center" style={{justifyContent: "flex-start"}}><Link to="#">Contact</Link></li>
           <ExcelToJsonConverterDialog />
         </ul>
       </nav>
